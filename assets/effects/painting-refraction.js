@@ -10,7 +10,7 @@ window.mountPaintingRefraction=function(root,viewport,painting){
  const lens=document.createElement('canvas'),frame=document.createElement('img');lens.className='painting-lens';frame.className='painting-lens-frame';frame.alt='';frame.width=frame.height=96;pointer.append(lens,frame);
  const glint=document.createElementNS('http://www.w3.org/2000/svg','svg');glint.setAttribute('viewBox','0 0 96 96');glint.classList.add('painting-lens-glint');glint.innerHTML='<path d="M 12 36 A 25 25 0 0 1 35 12" fill="none" stroke="#d1b780" stroke-width=".9" stroke-linecap="round" opacity=".6"/>';pointer.append(glint);
  const source=document.createElement('canvas'),sourceCtx=source.getContext('2d',{willReadFrequently:true}),lensCtx=lens.getContext('2d');
- const POINTER_SIZE=96,HOTSPOT=28*96/72,LENS_RADIUS=26.5;let pointerReady=false,lensFrame=0,mouse=null,lastPointerInput=null;
+ const POINTER_SIZE=96,HOTSPOT=28*96/72,LENS_RADIUS=27;let pointerReady=false,lensFrame=0,mouse=null,lastPointerInput=null;
  function hidePointer(){pointer.hidden=true;cancelAnimationFrame(lensFrame);lensFrame=0;}
  function pointerMode(){viewport.classList.toggle('flow-pointer-ready',pointerReady&&fine.matches);if(!fine.matches)hidePointer();}
  function renderLens(){lensFrame=0;if(pointer.hidden||!mouse||!sourceCtx||!lensCtx||!painting.naturalWidth)return;try{
@@ -20,7 +20,9 @@ window.mountPaintingRefraction=function(root,viewport,painting){
   sourceCtx.drawImage(painting,(mouse.x-ir.left-HOTSPOT)*scale,(mouse.y-ir.top-HOTSPOT)*scale,POINTER_SIZE*scale,POINTER_SIZE*scale,0,0,n,n);
   const src=sourceCtx.getImageData(0,0,n,n).data,out=lensCtx.createImageData(n,n),dst=out.data;
   for(let y=0;y<n;y++)for(let x=0;x<n;x++){const dx=x-c,dy=y-c,d=Math.hypot(dx,dy)/r;if(d>=1)continue;
-   const t=Math.max(0,Math.min(1,(d-.65)/.35)),ease=t*t*(3-2*t),zoom=1+.25*(1-ease),sx=c+dx/zoom,sy=c+dy/zoom;
+   // Monotone barrel map: 2.3x at the optical centre, with increasing compression/bending at the rim.
+   // f(d)=d*(a+(1-a)*d^4) joins the unchanged painting at d=1 without folds.
+   const radial=1/2.3+(1-1/2.3)*d*d*d*d,sx=c+dx*radial,sy=c+dy*radial;
    const ix=Math.floor(sx),iy=Math.floor(sy),fx=sx-ix,fy=sy-iy,offset=(y*n+x)*4;
    for(let channel=0;channel<4;channel++){const q=(iy*n+ix)*4+channel;dst[offset+channel]=(src[q]*(1-fx)+src[q+4]*fx)*(1-fy)+(src[q+n*4]*(1-fx)+src[q+n*4+4]*fx)*fy;}
    dst[offset+3]*=Math.min(1,(1-d)*r);
@@ -28,7 +30,7 @@ window.mountPaintingRefraction=function(root,viewport,painting){
  }catch(e){lensCtx.clearRect(0,0,lens.width,lens.height);}}
  function scheduleLens(){if(!pointer.hidden&&!lensFrame)lensFrame=requestAnimationFrame(renderLens);}
  frame.addEventListener('load',()=>{pointerReady=true;pointerMode();if(lastPointerInput)updatePointer(lastPointerInput);},{signal});frame.addEventListener('error',()=>{pointerReady=false;pointerMode();hidePointer();},{signal});document.body.append(pointer);frame.src='assets/cursors/scroll-magnifier-72.png';
- function updatePointer(e){lastPointerInput=e;const active=pointerReady&&fine.matches&&e.pointerType!=='touch'&&!e.buttons&&viewport.contains(e.target)&&!e.target.closest('button,a,[role=button],.story-guide');
+ function updatePointer(e){lastPointerInput=e;const active=pointerReady&&fine.matches&&e.pointerType!=='touch'&&!e.buttons&&viewport.contains(e.target)&&(!e.target.closest('button,a,[role=button],.story-guide')||Boolean(e.target.closest('.npc-seal')));
   if(!active){hidePointer();return;}pointer.hidden=false;mouse={x:e.clientX,y:e.clientY};pointer.style.transform='translate3d('+(e.clientX-HOTSPOT)+'px,'+(e.clientY-HOTSPOT)+'px,0)';scheduleLens();}
  document.addEventListener('pointermove',updatePointer,{signal,passive:true});document.addEventListener('pointerup',updatePointer,{signal,passive:true});document.addEventListener('visibilitychange',hidePointer,{signal});
  viewport.addEventListener('pointerleave',hidePointer,{signal});viewport.addEventListener('pointerdown',hidePointer,{signal});viewport.addEventListener('scroll',scheduleLens,{signal,passive:true});window.addEventListener('resize',scheduleLens,{signal});window.addEventListener('blur',hidePointer,{signal});fine.addEventListener('change',pointerMode,{signal});

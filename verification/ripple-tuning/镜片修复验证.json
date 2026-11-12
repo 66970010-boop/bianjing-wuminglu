@@ -1,0 +1,18 @@
+{
+  "actual": {
+    "zoomError": 1.7922077922077921,
+    "unzoomedError": 5.109848484848484,
+    "width": 95.99380493164062,
+    "hotspot": [
+      649.9999593098959,
+      369.99998982747394
+    ],
+    "lensOutsideAlpha": 0,
+    "cursor": "none",
+    "filter": "none"
+  },
+  "dragHidden": true,
+  "releaseRestored": true,
+  "reducedMotionLens": true,
+  "exitCleaned": true
+}

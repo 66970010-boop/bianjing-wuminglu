@@ -416,8 +416,13 @@
 .painting-flow-pointer{position:fixed;left:0;top:0;width:72px;height:72px;pointer-events:none;z-index:9999;object-fit:contain;filter:contrast(1.18) drop-shadow(0 0 .7px #fff1d1) drop-shadow(0 0 2px #e8ce9570);will-change:transform;}
 .painting-flow-pointer[hidden]{display:none;}
 @media(hover:hover) and (pointer:fine){.scroll .scroll-viewport.flow-pointer-ready{cursor:none;}}
-/* Deep bronze frame and a clear 1.25x lens; only a small upper-left arc catches light. */
+/* Deep bronze frame and a clear 1.6x lens; only a small upper-left arc catches light. */
 .painting-flow-pointer{width:96px;height:96px;filter:none;}
 .painting-flow-pointer .painting-lens,.painting-flow-pointer .painting-lens-frame,.painting-flow-pointer .painting-lens-glint{position:absolute;inset:0;width:96px;height:96px;pointer-events:none;}
 .painting-flow-pointer .painting-lens-frame{filter:brightness(.55) contrast(1.35) saturate(.65);object-fit:contain;}
 .painting-flow-pointer .painting-lens-glint{filter:none;}
+/* Seals retain the lens cursor; their click/preview handlers remain unchanged. */
+@media(hover:hover) and (pointer:fine){
+ .scroll .scroll-viewport.flow-pointer-ready:not(.is-dragging) .npc-seal,
+ .scroll .scroll-viewport.flow-pointer-ready:not(.is-dragging) .npc-seal *{cursor:none!important;}
+}

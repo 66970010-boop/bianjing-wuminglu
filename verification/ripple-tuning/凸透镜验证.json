@@ -1,0 +1,25 @@
+{
+  "actual": {
+    "zoomError": 1.8217299578059072,
+    "unzoomedError": 5.5358649789029535,
+    "width": 95.99380493164062,
+    "hotspot": [
+      649.9999593098959,
+      369.99998982747394
+    ],
+    "lensOutsideAlpha": 0,
+    "cursor": "none",
+    "filter": "none"
+  },
+  "dragHidden": true,
+  "releaseRestored": true,
+  "reducedMotionLens": true,
+  "exitCleaned": true,
+  "optics": {
+    "centreMagnification": 2.3,
+    "radialMapping": "f(r)=r*(1/2.3+(1-1/2.3)*r^4)",
+    "edgeContinuity": true,
+    "minimumRadialDerivative": 0.4347826086956522,
+    "distortionVsFlatZoomAt80PercentRadiusPx": 5.000681739130436
+  }
+}

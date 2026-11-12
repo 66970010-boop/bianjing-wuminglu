@@ -1,0 +1,8 @@
+.scroll .npc-seal.intro-guide-highlight,.scroll .npc-seal:focus,.scroll .npc-seal:focus-visible{outline:none!important;box-shadow:none!important;border:0!important;filter:none!important}
+.scroll .npc-seal:focus-visible img,.scroll .npc-seal.intro-guide-highlight img{filter:drop-shadow(0 0 5px #fff0bd) drop-shadow(0 0 12px #ffe3a6)!important}
+.scroll .npc-seal img,.scroll .npc-seal.is-complete img{animation:seal-gentle-float 3.2s ease-in-out infinite!important;transition:scale .22s ease;scale:1}
+.scroll .npc-seal:hover img,.scroll .npc-seal:focus-visible img{scale:1.12}
+@keyframes seal-gentle-float{0%,100%{translate:0 0}50%{translate:0 -4px}}
+.scroll .intro-guide-card,.scroll .intro-guide-card.intro-guide-top{top:calc((100% + var(--nav-height) - var(--roll-height))/2)!important;bottom:auto!important;left:50%;transform:translate(-50%,-50%);max-height:calc(100% - var(--nav-height) - var(--roll-height) - 24px);overflow:auto;box-sizing:border-box}
+@media(prefers-reduced-motion:reduce){.scroll .npc-seal img,.scroll .npc-seal.is-complete img{animation:none!important;transition:none;translate:none}.scroll .npc-seal:hover img,.scroll .npc-seal:focus-visible img{scale:1;filter:drop-shadow(0 0 8px #ffe3a6)!important}}
+.scroll .scroll-actions{align-self:stretch;display:flex;align-items:center;justify-content:center;flex-direction:column}.scroll .scroll-replay-guide{margin:0;text-align:center;min-height:44px;}

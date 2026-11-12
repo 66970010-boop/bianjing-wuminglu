@@ -47,10 +47,7 @@ function mountScroll(root){
  range.setAttribute('aria-label','画卷横向位置');
  timeline.append(overview,range);
  const actions=div('scroll-actions');
- const viewToggle=btn('欣赏原画',()=>{const clean=root.classList.toggle('is-art-only');viewToggle.textContent=clean?'返回寻访':'欣赏原画';viewToggle.setAttribute('aria-pressed',String(clean));});
- viewToggle.setAttribute('aria-pressed','false');
- const source=document.createElement('a');source.href='https://www.dpm.org.cn/collection/paint/228226.html';source.target='_blank';source.rel='noopener noreferrer';source.textContent='故宫博物院藏 ↗';
- actions.append(viewToggle,source);footer.append(regions,timeline,actions);
+ actions.append(btn('重看入门引导',replayIntroGuide,'scroll-replay-guide'));footer.append(regions,timeline,actions);
  const loading=div('scroll-loading');loading.setAttribute('role','status');loading.textContent='正在展卷…';
  const story=state.dayStory||{};
  const delivering=!story.ended&&(story.directions||story.credited?.length>=3);
