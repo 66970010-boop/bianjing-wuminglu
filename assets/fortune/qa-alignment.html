@@ -1,0 +1,25 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>问卦隔离验证</title><link rel="stylesheet" href="/fortune.css"><style>body{margin:0;background:#000;color:#c7b58d}#testStage{width:900px;max-width:100vw;height:500px}pre{white-space:pre-wrap}button{font-size:18px}</style>
+<button id="combinations">验证八种组合及随机居中</button><button id="flow">开始隔离六轮流程</button><pre id="report"></pre><div id="testStage"></div><main class="screen" id="root"></main>
+<script src="/data/hexagrams.js"></script><script src="/fortune-core.js"></script><script>
+var state={played:{},clues:{},fortuneSession:null},saved=[];
+function save(){saved.push(JSON.parse(JSON.stringify(state.fortuneSession)));}
+function div(c){var n=document.createElement('div');n.className=c;return n;}
+function btn(t,f,c){var n=document.createElement('button');n.textContent=t;n.className=c;n.onclick=f;return n;}
+function go(){}function markNpcTalked(){}
+</script><script src="/fortune.js"></script><script type="module">
+import {createCoinStage} from './coin-stage.js';
+const report=document.querySelector('#report'),host=document.querySelector('#testStage');let stage;
+document.querySelector('#combinations').onclick=async()=>{
+ stage??=await createCoinStage(host,{reduced:true});const rows=[];
+ for(let i=0;i<8;i++){const values=[0,1,2].map(j=>i&(1<<j)?3:2);await stage.toss(values);const actual=stage.inspect(),sum=values.reduce((a,b)=>a+b,0),result=BJFortune.cast([sum,7,7,7,7,7]);rows.push({values,visible:actual.visible.map(v=>v.value),textures:actual.visible.map(v=>v.texture.split('/').pop()),sum,yang:result.base.bits[0]==='1',moving:result.moving.includes(1),centerErrorPx:actual.centerErrorPx,pass:actual.visible.every((v,j)=>v.value===values[j]&&v.facing>0)&&((result.base.bits[0]==='1')===!!(sum%2))&&(result.moving.includes(1)===[6,9].includes(sum))&&Math.abs(actual.centerErrorPx)<1});}
+ const centers=[];for(let i=0;i<20;i++){await stage.toss([3,2,3]);centers.push(stage.inspect().centerErrorPx);}
+ report.textContent=JSON.stringify({rows,centers,pass:rows.every(r=>r.pass)&&centers.every(e=>Math.abs(e)<1)},null,2);
+};
+document.querySelector('#flow').onclick=()=>{
+ stage?.dispose();document.querySelector('#testStage').remove();document.querySelector('#report').remove();document.querySelector('#combinations').remove();document.querySelector('#flow').remove();
+ state.fortuneSession={question:'隔离验证，不写入正式存档',coins:[[2,2,2],[3,2,2],[3,3,2],[3,3,3],[2,3,2],[2,3,3]],revealed:0,messages:[]};
+ mountFortune(document.querySelector('#root'));
+ const log=document.createElement('script');log.type='application/json';log.id='qa-log';document.body.append(log);
+ new MutationObserver(()=>{log.textContent=JSON.stringify({saved,phase:document.querySelector('#root').dataset.castPhase});}).observe(document.querySelector('#root'),{subtree:true,attributes:true,childList:true});
+};
+</script></html>

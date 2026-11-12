@@ -1,17 +1,26 @@
-# 汴京无名录 · 分层网页原型
+# 汴京一日 · 汴京无名录
 
-运行入口：`dist/index.html`。静态页面无构建依赖。
+以张择端《清明上河图》为舞台的浏览器互动叙事游戏，包含送家书主线、画卷探索、人物互动、小游戏与可选的在线解卦。
 
-## 图层
+当前为剧情修订阶段版，完整需求与尚未完成事项仍需继续落实，尚未全部验收通过。
 
-- 场景背景：`dist/assets/river-layer.png`、`stall-layer.png`；在 `.scene` 层引用。
-- 人物透明层：`baker-layer.png`、`boatman-layer.png`、`merchant-layer.png`、`fortune-layer.png`、`monk-layer.png`、`toy-layer.png`；由 `img()` 放入 `.layer`，位置由页面 CSS 控制。
-- 纸纹、赭红圆、关系线、色块：CSS `texture`、`sun`、`relation-line`。
-- 标题、导航、对话、提示、按钮、热点：均为 HTML DOM 元素，由 `render()` 按页面构建。
-- 剧情状态：`state`，保存在浏览器 `localStorage` 的 `bj-state` 中。可在浏览器开发者工具中清除该键以重玩。
+## 本地运行
 
-## 页面与玩法
+需要 Node.js 22 或更高版本，无需安装额外依赖或构建。
 
-`render()` 包含首页、四段序章、游卷、人物对话、场景小游戏、无名录、史料页、终章。`visit()` 记录遇见人物，`clue()` 确认饼店与船夫关系；所有交互坐标集中在 `hotspot()` 调用处。玩法文案在 `info`、`arr` 和无名录 `detail` 模板中。
+- Windows：双击 `启动游戏.cmd`，打开 http://localhost:3002 。
+- 通用：运行 `npm start`，打开 http://localhost:3001 。
+- macOS / Linux：运行 `bash 启动游戏.sh`。
+- 离线：直接打开根目录 `index.html`，在线解卦不可用。
 
-当前图片属于生成的概念补绘，不是《清明上河图》原作。需要接入原作时替换场景资源并重新核对热点位置；史料引文仍需校对。开场与六人物关系网络为原型，职业互动深度尚未达到完整版。
+当前入口位于仓库根目录，已替代早期 `dist/index.html` 原型。
+
+## 可选在线解卦
+
+将 `.env.example` 复制为 `.env`，填写自己的 `OPENAI_API_KEY` 与 `OPENAI_MODEL`。密钥仅用于服务端，`.env` 不提交到仓库；未配置时使用离线解读。
+
+## 测试与说明
+
+运行 `npm test` 执行现有 6 项自动化测试。测试通过不代表全部剧情、视觉与交互已经验收完成。
+
+详细的目录、玩法、素材说明与阶段记录见 [项目说明](项目说明.md)。

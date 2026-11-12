@@ -1,0 +1,65 @@
+/* Keep the original composition usable at normal browser zoom and short window heights. */
+@media (min-width: 701px){
+ .person-full-shell{height:100dvh;min-height:0;padding-top:68px}
+ .person-full-shell .person-page{height:100%;min-height:0;grid-template-columns:minmax(0,48%) minmax(0,52%)}
+ .person-full-shell .person-portrait{height:100%;min-height:0}
+ .person-full-shell .person-portrait img{height:96%;width:100%;bottom:2%;object-fit:contain}
+ .person-full-shell .person-copy{max-height:100%;min-height:0;overflow-y:auto;padding:clamp(14px,3vh,35px) clamp(24px,5vw,70px);scrollbar-width:thin}
+ .person-full-shell .person-copy h2{font-size:clamp(34px,6vh,58px);margin:clamp(5px,1vh,12px) 0}
+ .person-full-shell .person-copy p{font-size:clamp(14px,2.1vh,16px);line-height:1.65;margin:clamp(8px,1.6vh,16px) 0}
+ .person-full-shell .person-copy h3{padding-top:clamp(8px,1.5vh,18px);margin-top:clamp(10px,2vh,26px);margin-bottom:clamp(5px,1vh,12px)}
+ .person-full-shell .person-clue{padding:clamp(5px,1.3vh,12px) 0;line-height:1.5}
+ .person-full-shell .person-note{margin-top:clamp(7px,1.5vh,18px)!important}
+ .person-full-shell .person-back{margin-top:clamp(8px,1.5vh,20px);padding:7px 0}
+}
+@media (min-width: 701px) and (max-height: 850px){
+ .book-shell{padding-top:clamp(78px,12vh,100px);padding-bottom:24px}
+ .book-head h1{font-size:clamp(38px,6.5vh,58px)}
+ .book-head{padding-bottom:clamp(10px,2vh,24px)}
+ .people-overview{min-height:max(330px,calc(100dvh - 280px))}
+ .people-overview:before{width:min(39vw,460px,max(300px,calc(100dvh - 300px)))}
+ .people-index{padding-top:10px;padding-bottom:10px}
+ .people-index h2{font-size:clamp(26px,5vh,42px);margin:clamp(8px,1.5vh,14px) 0}
+ .people-name{padding:clamp(6px,1.1vh,11px) 0;font-size:clamp(15px,2.4vh,18px)}
+ .people-caption{margin-top:clamp(8px,1.5vh,18px)}
+ .people-group[data-count="5"]{min-height:max(330px,calc(100dvh - 280px))}
+ .dialogue .baker{height:min(78vh,calc(100dvh - 100px));bottom:0}
+ .dialogue .right{top:clamp(80px,15vh,130px);max-height:calc(100dvh - 150px);overflow-y:auto;scrollbar-width:thin}
+ .right h1{font-size:clamp(36px,7vh,70px)}.right h2{font-size:clamp(18px,3.4vh,28px);margin:8px 0}.right p{font-size:clamp(15px,2.5vh,20px);line-height:1.6;margin:10px 0}.choice{font-size:clamp(15px,2.5vh,20px);padding:clamp(8px,1.5vh,15px) 0}
+ .opening-card{top:clamp(80px,22vh,180px)}.opening-card h2{font-size:clamp(25px,5vh,50px)}
+ .instruction{max-height:calc(100dvh - 145px);overflow-y:auto;top:80px}
+}
+@media(max-width:700px){
+ .person-full-shell{min-height:100dvh;height:auto}
+ .person-full-shell .person-page{min-height:calc(100dvh - 54px)}
+ .person-full-shell .person-portrait{min-height:45dvh}
+ .person-full-shell .person-copy{padding:26px 24px 36px}
+ .dialogue.screen,.game.screen{min-height:100dvh;overflow-y:auto}
+}
+/* V10: the cloth, text and portraits share the same responsive composition. */
+@media(min-width:701px){
+ .book-shell:has(.people-overview){width:100%;max-width:1600px;padding:clamp(84px,11vh,112px) 4.5% 24px}
+ .people-overview{--circle-size:min(100%,460px);grid-template-columns:minmax(0,40%) minmax(0,60%);align-items:center;min-height:0;gap:0;padding-top:24px}
+ .people-overview:before{display:none}
+ .people-index{position:relative;isolation:isolate;width:var(--circle-size);aspect-ratio:1;min-height:0;justify-self:start;align-self:center;display:flex;flex-direction:column;justify-content:center;padding:12% 13%;box-sizing:border-box}
+ .people-index:before{content:'';position:absolute;inset:0;z-index:-1;border-radius:50%;background:#973e2c url('assets/cinnabar-fabric.png') center/cover}
+ .people-index .eyebrow{font-size:clamp(9px,1vw,12px);letter-spacing:.14em;white-space:nowrap}
+ .people-index h2{font-size:clamp(26px,3vw,42px);margin:12px 0}
+ .people-names{width:100%;max-width:none;column-gap:16px}
+ .people-name{min-width:0;font-size:clamp(14px,1.4vw,18px);padding:8px 0;letter-spacing:.04em;white-space:nowrap}
+ .people-caption{font-size:clamp(10px,.9vw,12px);margin-top:14px;line-height:1.7}
+ .people-group[data-count="5"]{width:min(100%,680px);height:clamp(340px,calc(100dvh - 290px),560px);min-height:0;justify-self:center;align-self:center}
+ .people-group[data-count="5"] .group-person{width:32%;height:43%}
+ .people-group[data-count="5"] .group-person:nth-child(1){top:24%}
+ .people-group[data-count="5"] .group-person:nth-child(2),.people-group[data-count="5"] .group-person:nth-child(5){top:40%}
+ .people-group[data-count="5"] .group-person:nth-child(3),.people-group[data-count="5"] .group-person:nth-child(4){top:77%}
+}
+@media(min-width:701px) and (max-height:740px){
+ .book-shell:has(.people-overview){padding-top:78px}
+ .book-shell:has(.people-overview) .book-head h1{font-size:38px}
+ .book-shell:has(.people-overview) .book-head p{font-size:14px;margin:4px 0}
+ .book-shell:has(.people-overview) .book-head{padding-bottom:12px}
+ .people-overview{padding-top:14px}
+ .people-index{width:min(100%,calc(100dvh - 245px));padding:10% 12%}
+ .people-index h2{font-size:28px;margin:8px 0}.people-name{font-size:14px;padding:6px 0}.people-caption{font-size:10px;margin-top:8px}
+}

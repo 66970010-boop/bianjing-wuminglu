@@ -1,0 +1,423 @@
+/* 汴京一日 · 样式覆盖层（ui-overrides.css）
+   由 ui-fixes.css、viewport-fit.css、presentation-update.css 按原加载顺序合并，
+   选择器优先级与层叠顺序不变；改动请只在本文件内追加，勿再拆出新文件。 */
+
+/* ==== 1/3 交互、焦点与无障碍覆盖层（原 ui-fixes.css，2026-11-09） ==== */
+/* Shared design tokens. Scoped overrides keep the existing illustration and gameplay. */
+:root{--ui-focus:#f1d58b;--ui-nav-height:68px;--ui-text-small:14px;--ui-focus-dark:#783523}
+#app{overflow-anchor:none}button,a,input,textarea,summary{touch-action:manipulation}button{min-height:44px}button:disabled{cursor:default}
+:is(button,a,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--ui-focus)!important;outline-offset:4px!important}
+.ui-light,.drink-screen,.topbar.light{--ui-focus:var(--ui-focus-dark)}
+.ui-sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.ui-topbar.topbar{height:var(--ui-nav-height);gap:20px;padding:0 4%;overflow:visible;flex-wrap:nowrap;z-index:40;color:#eee5d0}
+.ui-topbar.topbar.light{color:#302d27}.ui-topbar .brand{font-size:22px;min-width:0;flex-shrink:0;margin:0;letter-spacing:.15em;padding:8px 0}
+.ui-topbar .ui-nav{display:flex;align-items:center;gap:24px}.ui-topbar .ui-nav button{font-size:15px;padding:8px 4px;white-space:nowrap;border-radius:0}
+.ui-menu-toggle{display:none;border:1px solid currentColor;background:transparent;color:inherit;padding:8px 16px}
+.ui-inline-notice{position:relative;padding:12px 16px;margin:12px 0;background:#e7ddcb;color:#302d27;border-left:3px solid #8a4438;font-size:15px;line-height:1.7}
+.five-entry img{width:32%;height:190px;object-fit:contain}.five-copy p{font-size:16px}.five-copy small{font-size:14px}.five-shell>.eyebrow{font-size:14px}
+.five-shell .five-return,.monk-back,.person-back,.monk-text-button,.story-journal button{min-height:44px;font-size:15px}
+.ui-task-toggle{display:block;background:none;color:#f0e5c8;border:0;border-bottom:1px solid #b5a37b;font-size:14px;padding:4px 0;text-align:left}
+.story-guide{max-width:330px;padding:10px 16px}.story-guide [hidden]{display:none}.scroll.is-art-only .story-guide,.scroll.is-art-only .scroll-drink-guide{display:none!important}
+.scroll-footer button,.scroll-caption,.scroll-actions a{font-size:14px}.scroll-world .hotspot{width:40px;height:40px}.scroll-world .hotspot:after{inset:14px}
+.ending.end{background:#171d1a;isolation:isolate;min-height:100dvh}.ending.end .sun{width:60vw;height:60vw;max-width:800px;max-height:800px;opacity:.26;z-index:-1}.ending.end .city{height:32%;opacity:.32;z-index:-1}
+.ending.end .story-card{max-width:860px;width:calc(100% - 48px);padding:38px 40px;margin:110px auto 48px;background:#202923f5;border:1px solid #8e825d;text-align:left;letter-spacing:normal}
+.ending.end .story-card p{font-size:19px;line-height:1.9;letter-spacing:normal}.ending.end .story-card h1{font-size:clamp(30px,4vw,50px);letter-spacing:.05em}.ending.end .story-card small{font-size:14px;color:#d2c8b0}
+.ending.end .topbar button{margin:0;padding:8px 4px;border-bottom:0}.ending.end .topbar .active{border-bottom:2px solid #c8b779}
+.ending.end .story-card .choice{margin:12px 0 0;padding:14px 0;color:#f1e5c8;border-top:1px solid #9c8e68;border-bottom:0}
+.barber-layout{grid-template-columns:minmax(0,1fr) 310px;align-items:start}.barber-stage{width:100%;max-height:none}.barber-shell{max-width:1260px;padding-bottom:36px}
+@media(min-width:901px){.barber-stage{max-width:min(100%,calc((100dvh - 255px)*1.4286))}.barber-layout{grid-template-columns:minmax(0,1fr) 310px}.barber-aside{position:sticky;top:20px}}
+.barber-status,.barber-footnote,.barber-steps{font-size:14px}.barber-assist{margin-top:18px;border-top:1px solid #a99068;padding-top:12px;font-size:15px;line-height:1.7}.barber-assist summary{min-height:44px;cursor:pointer;padding:10px 0;color:#693a29}.barber-assist p{font-size:14px}.barber-assist-controls{display:grid;grid-template-columns:1fr;gap:8px}.barber-assist button{border:1px solid #8c7756;background:#f1e9d8;color:#302d27;padding:10px 12px;font-size:14px;text-align:left}.barber-assist button:disabled{color:#625c50;background:#e1d9c7;opacity:.75}
+.barber .person-back{color:#693a29;border-color:#876b47}.barber .barber-talk{color:#514c3b}
+.group-person,.group-person:nth-child(2n),.group-person:nth-child(3n){margin:0!important;transform:none;flex:0 0 31%;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;padding:8px}
+.group-person img,.group-person .drink-person{height:170px!important;max-height:170px;width:100%;object-fit:contain}.ui-person-caption{font-size:14px;color:#eadfc8;line-height:1.7;white-space:nowrap}.people-group{gap:12px;padding:24px 2%}.people-caption,.person-note,.person-clue small{font-size:14px!important}.people-name{min-height:44px}
+.toys-shell{height:auto;min-height:100dvh;padding-top:var(--ui-nav-height)}.toys-shell iframe{display:block;flex:none;height:840px;min-height:600px}.toys-bar{padding:18px 4%}.toys-bar h1{font-size:28px}.toys-bar small{font-size:14px}
+.toys-screen .ui-topbar{position:fixed}.toys-bar{position:sticky;top:var(--ui-nav-height);z-index:10;background:#ede5d4}
+.drink-screen{--ui-focus:#783523;overflow-y:auto;height:auto;min-height:100dvh}.drink-screen .drink-layout{max-width:1440px;margin:auto}.drink-screen .drink-workbench{background:#e1d2aeed}.drink-screen .drink-workhead small,.drink-screen .drink-kicker,.drink-screen .drink-method,.drink-screen .drink-stats small,.drink-screen .drink-recipe-detail>p,.drink-screen .drink-guide details,.drink-screen .drink-order small,.drink-screen .drink-order>div,.drink-screen .drink-ingredient strong,.drink-screen .drink-ingredient small,.drink-screen .drink-tool,.drink-screen .drink-prep-progress,.drink-screen .drink-bowl-card strong,.drink-screen .drink-bowl-card small,.drink-screen .drink-feedback,.drink-screen .drink-next small,.drink-screen .drink-prep-caption small,.drink-screen .drink-footer{font-size:14px;line-height:1.6}
+.drink-pause button{min-height:44px;font-size:16px;margin:8px;padding:10px 16px}
+.drink-screen .drink-header button,.drink-screen .drink-recipe-tabs button,.drink-screen .drink-serve,.drink-screen .drink-process,.drink-screen .tool-discard{min-height:44px;font-size:14px}.drink-screen .drink-customer .drink-serve{min-height:44px}.drink-screen .drink-ingredient{min-width:0}.drink-screen .drink-header{min-height:70px;height:auto}.drink-screen .drink-next{min-height:56px}.drink-screen .drink-guide{width:auto}.drink-screen .drink-order{width:60%;left:40%}.drink-screen .drink-tool:disabled{opacity:.55}.drink-screen .drink-tool:disabled:after{font-size:12px}.drink-screen .drink-guide summary{min-height:44px;padding:8px 0}
+@media(max-width:900px){.ui-topbar.topbar{gap:12px;padding:0 20px}.ui-topbar .ui-nav{gap:14px}.ui-topbar .ui-nav button{font-size:14px}.barber-layout{grid-template-columns:minmax(0,1fr) 270px}.drink-screen .drink-workbench{grid-template-columns:1fr}.drink-screen .drink-serving{grid-column:1;grid-row:auto;border-left:0;border-top:1px solid #a58f66;padding:16px 0}.drink-screen .drink-guide{float:none}.drink-screen .drink-recipe-tabs{float:none;justify-content:flex-start;flex-wrap:wrap}.drink-screen .drink-customers{height:260px}}
+@media(max-width:700px){
+ :root{--ui-nav-height:64px}.ui-topbar.topbar,.scroll .ui-topbar.topbar{height:64px;gap:12px;padding:0 16px;overflow:visible;flex-wrap:nowrap}
+ .ui-topbar .brand,.scroll .ui-topbar .brand{font-size:19px;min-width:0}.ui-menu-toggle{display:block;min-width:76px;font-size:15px}
+ .ui-topbar .ui-nav{display:none;position:absolute;top:64px;left:0;right:0;padding:12px 16px 18px;background:#1d2c25;border-bottom:1px solid #a89872;box-shadow:0 8px 16px #0003;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;--ui-focus:#f1d58b}
+ .ui-topbar .ui-nav[data-open=true]{display:grid}.ui-topbar .ui-nav button{color:#eee5d0;font-size:16px;min-height:48px;min-width:44px;text-align:left;padding:10px 14px;border:1px solid #7d826d}.ui-topbar .ui-nav .active{background:#3b4c3e;border-bottom:2px solid #d7be7d}
+ .screen.scroll{--nav-height:64px}.monk-shell{padding-top:88px}.monk-mast{align-items:flex-start}.monk-progress{font-size:14px;gap:12px;flex-wrap:wrap}.monk-portrait{max-height:230px}.monk-dialogue-layout{gap:20px}.monk-talk{padding-top:12px}.monk-choices button{font-size:16px;line-height:1.8;padding:14px}
+ .story-guide{top:76px;left:16px;max-width:calc(100% - 32px);font-size:14px}.story-guide .ui-task-toggle{min-height:36px}.story-guide p{margin:8px 0}.story-guide button{font-size:14px}.scroll-drink-guide{display:none!important}.scroll-caption{font-size:13px}.scroll-footer button{font-size:14px;min-width:44px;min-height:44px}.scroll-footer{padding-block:8px}.scroll-actions{gap:8px}
+ .five-shell{padding:92px 20px 40px}.five-shell h1{font-size:30px}.five-entry{gap:16px;min-height:210px}.five-entry img{width:30%;height:160px}.five-copy h2{font-size:24px}.five-copy p{font-size:16px}.five-intro{font-size:16px}
+ .barber-layout{grid-template-columns:1fr}.barber-shell{padding:20px 16px 32px}.barber-title h1{font-size:28px}.barber-aside p{font-size:16px}.barber-steps{gap:12px;flex-wrap:wrap}.barber-assist-controls{grid-template-columns:1fr 1fr}.barber-actions button{font-size:15px}.barber-aside{padding:0}.barber-tool{float:none;margin:10px auto}
+ .ending.end .story-card{width:calc(100% - 32px);margin:88px auto 32px;padding:24px 20px}.ending.end .story-card p{font-size:17px}.ending.end .story-card h1{font-size:30px;line-height:1.5}.ending.end .story-card .choice{font-size:16px}.ending.end .ui-topbar .ui-menu-toggle{border:1px solid currentColor;padding:8px 16px}
+ .ending.end .topbar .ui-nav button{border:1px solid #7d826d;padding:10px 14px}.ending.end .topbar .ui-nav .active{border-bottom:2px solid #d7be7d}
+ .group-person,.group-person:nth-child(2n),.group-person:nth-child(3n){flex:0 0 45%;height:200px}.group-person img,.group-person .drink-person{height:150px!important;max-height:150px}.people-group{gap:12px}.people-caption{font-size:14px}.book-shell{padding-top:92px}
+ .toys-bar{padding:16px;gap:12px}.toys-bar h1{font-size:24px}.toys-bar .five-return{font-size:14px;min-height:44px}.toys-shell iframe{height:1040px;min-height:800px}
+ .drink-screen .drink-header{padding:12px 16px;gap:8px}.drink-screen .drink-title h1{font-size:24px}.drink-screen .drink-tools{justify-content:flex-start;gap:12px}.drink-screen .drink-header button{padding:8px}.drink-screen .drink-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.drink-screen .drink-stats>div{padding:0 6px}.drink-screen .drink-next{align-items:flex-start;line-height:1.7}.drink-screen .drink-next strong{font-size:16px}.drink-screen .drink-recipe-tabs button{min-width:56px;padding:8px}.drink-screen .drink-workbench{padding:16px}.drink-screen .drink-ingredients{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.drink-screen .drink-serving{display:block}.drink-screen .drink-bowls{margin:12px 0}.drink-screen .drink-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.drink-screen .drink-prep-steps{flex-wrap:wrap}.drink-screen .drink-process{width:auto!important;min-width:72px}.drink-screen .drink-customers{height:280px}.drink-screen .drink-order{width:100%;left:0}.drink-screen .drink-customer{height:270px}.drink-screen .drink-dialog{grid-template-columns:1fr}.drink-screen .drink-keeper{display:none}.drink-screen .drink-dialog p{font-size:17px}.drink-screen .drink-overlay{inset:0}.drink-screen .drink-footer{padding:12px 16px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{scroll-behavior:auto!important}.group-person{transition:none}}
+
+/* ==== 2/3 视口与低高度适配（原 viewport-fit.css，2026-11-09） ==== */
+/* Fit game controls to the browser's CSS viewport at 100% zoom.
+   Reading screens may scroll. Game scenes reserve space for their controls. */
+.home .hero-content{padding:clamp(20px,4dvh,40px)}
+.home .seal{margin-top:clamp(20px,5dvh,55px)}
+.home .collection-home{margin-top:clamp(16px,3dvh,32px)}
+.ui-topbar .ui-menu-toggle{border:1px solid currentColor;padding:8px 16px}
+.fortune-screen{--ui-focus:#783523}
+.screen.scroll{--nav-height:var(--ui-nav-height)}
+
+/* The toy viewer receives the remaining height, rather than a fixed 840px. */
+.toys-screen.screen{height:100dvh;min-height:0;overflow:hidden}
+.toys-shell{height:100dvh;min-height:0;overflow:hidden}
+.toys-bar{flex:0 0 auto;position:relative;top:auto;padding-block:12px}
+.toys-shell iframe{flex:1 1 0;min-height:0;height:0}
+
+@media(min-width:1000px){
+ .monk-puzzle-grid .monk-evidence-list{display:block}
+ .monk-puzzle-grid .monk-evidence{margin-bottom:8px}
+ .monk-puzzle-grid .monk-evidence-detail{min-height:0}
+ .barber-shell{padding-bottom:82px}
+ .barber-aside{max-height:calc(100dvh - 220px);overflow-y:auto;overscroll-behavior:contain;padding-right:10px}
+ .barber-stage{max-width:min(100%,calc((100dvh - 240px)*1.4286))}
+ .barber-actions{margin:0;position:fixed;bottom:0;left:4%;right:4%;background:#e8dfcb;padding:8px 0;z-index:4;border-top:1px solid #a99573}
+ .drink-screen.screen{height:100dvh;min-height:0;overflow:hidden;display:grid;grid-template-rows:auto auto auto minmax(0,1fr) auto}
+ .drink-screen .drink-header{min-height:56px;padding:4px 20px}
+ .drink-screen .drink-title small{display:block;font-size:11px;line-height:1.2}
+ .drink-screen .drink-title h1{font-size:22px;margin:0;line-height:1.2}
+ .drink-screen .drink-stats{min-height:36px;padding:4px 20px}
+ .drink-screen .drink-stats>div{padding-inline:16px;min-width:100px}
+ .drink-screen .drink-next{min-height:44px;padding:7px 20px}
+ .drink-screen .drink-layout{width:100%;height:100%;min-height:0;max-width:1600px;padding:8px 20px;gap:18px;grid-template-columns:180px minmax(0,1fr);overflow:auto}
+ .drink-screen .drink-guide{min-height:0;max-height:100%;overflow:auto;padding:14px 12px}
+ .drink-screen .drink-guide>button{position:sticky;bottom:0;z-index:2;width:100%;background:#344a38;color:#f1e5c8}
+ .drink-screen .drink-guide h2{font-size:20px;margin:8px 0 12px}
+ .drink-screen .drink-recipe-detail h3{font-size:23px;margin:8px 0}
+ .drink-screen .drink-guide .drink-number{font-size:24px;line-height:1.1}
+ .drink-screen .drink-guide .drink-method{margin:8px 0}
+ .drink-screen .drink-guide .drink-recipe-flow{padding-block:8px}
+ .drink-screen .drink-main{display:grid;grid-template-rows:minmax(120px,1fr) auto;min-height:0;gap:6px}
+ .drink-screen .drink-customers{height:auto;min-height:120px;max-height:100%;padding:0 12px;align-items:stretch}
+ .drink-screen .drink-customer,.drink-screen .drink-customer.foreground{height:100%;min-height:120px;max-width:300px}
+ .drink-screen .drink-customer .drink-person{height:clamp(70px,19dvh,200px);max-height:100%;width:47%}
+ .drink-screen .drink-order{top:0;left:42%;width:58%;padding:4px 8px}
+ .drink-screen .drink-order strong{font-size:17px;line-height:1.2;margin:2px 0}
+ .drink-screen .drink-order small{font-size:12px;line-height:1.2}
+ .drink-screen .drink-order>div{font-size:13px;line-height:1.2}
+ .drink-screen .drink-order progress{margin:4px 0 0}
+ .drink-screen .drink-customer .drink-serve{bottom:0;min-height:40px;padding:7px 10px;font-size:14px}
+ .drink-screen .drink-quiet{height:100%;min-height:0;font-size:16px;gap:16px;padding:0}
+ .drink-screen .drink-quiet .drink-person{height:clamp(70px,18dvh,170px);max-height:100%}
+ .drink-screen .drink-workbench{min-height:0;flex:none;padding:8px 14px 10px;grid-template-columns:minmax(0,1fr) 310px;gap:0 16px;border-top-width:4px;box-shadow:0 5px 0 #7d623e}
+ .drink-screen .drink-workhead{grid-column:1;min-height:24px;padding-bottom:4px;font-size:16px}
+ .drink-screen .drink-ingredients{min-height:0;margin:6px 0;align-items:center}
+ .drink-screen .drink-ingredient .drink-prop{height:clamp(44px,7dvh,76px)}
+ .drink-screen .drink-ingredient strong{font-size:14px;margin:2px 0}
+ .drink-screen .drink-ingredient small{font-size:13px;line-height:1.4}
+ .drink-screen .drink-preparation{padding-top:6px;min-height:0}
+ .drink-screen .drink-prep-caption{margin-bottom:3px;gap:8px}
+ .drink-screen .drink-process{min-height:44px;width:auto!important;min-width:60px;padding:3px 6px}
+ .drink-screen .drink-process .drink-prop{height:38px}
+ .drink-screen .drink-prep-steps{gap:6px;flex-wrap:wrap}
+ .drink-screen .drink-prep-progress{font-size:13px;flex:1;min-width:100px}
+ .drink-screen .drink-serving{grid-row:1/4;min-height:0;padding:0 0 0 12px;gap:4px;align-content:start}
+ .drink-screen .drink-sidehead{font-size:16px;line-height:1.3;min-height:22px}
+ .drink-screen .drink-sidehead small{font-size:13px}
+ .drink-screen .drink-bowls{padding:0;gap:8px}
+ .drink-screen .drink-bowl-card{min-height:0;padding:3px;line-height:1.3}
+ .drink-screen .drink-bowl-card strong{font-size:14px;line-height:1.35}
+ .drink-screen .drink-bowl-card small{font-size:12px;line-height:1.35}
+ .drink-screen .drink-bowl-drawing{height:34px;max-width:84px;margin:2px auto}
+ .drink-screen .drink-bowl-drawing span{height:9px;top:5px}
+ .drink-screen .drink-bowl-tags{font-size:12px;line-height:1.3;min-height:16px}
+ .drink-screen .drink-actions{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+ .drink-screen .drink-tool{min-height:44px!important;padding:2px;font-size:13px;line-height:1.2}
+ .drink-screen .drink-tool .drink-prop{height:28px}
+ .drink-screen .tool-discard{min-height:32px!important;padding:4px 6px;grid-column:1/-1;font-size:13px}
+ .drink-screen .drink-feedback{min-height:36px;padding:6px 8px;margin:0;font-size:13px;line-height:1.5}
+ .drink-screen .drink-footer{margin:0;padding:4px 20px;min-height:26px;font-size:12px;line-height:1.5}
+}
+
+/* Compact compositions for laptop viewports and Windows display scaling. */
+@media(min-width:1000px) and (max-height:740px){
+ .fortune-shell{padding:82px 32px 20px}
+ .fortune-intro{margin-bottom:14px}
+ .fortune-intro h1{font-size:32px;margin:5px 0}
+ .fortune-intro p{font-size:15px}
+ .fortune-layout{grid-template-columns:26% minmax(0,1fr);gap:32px}
+ .fortune-portrait{min-height:0;padding-right:20px}
+ .fortune-portrait img{height:clamp(160px,38dvh,280px)}
+ .fortune-name{font-size:21px;margin:10px 0}
+ .fortune-panel{padding:18px 24px}
+ .fortune-mode,.fortune-step{margin-bottom:8px}
+ .fortune-prompt{font-size:20px;line-height:1.4;margin-bottom:12px}
+ .fortune-presets{margin-bottom:12px;gap:6px}
+ .fortune-presets button{min-height:36px;padding:6px 9px;font-size:14px}
+ .fortune-panel form{gap:6px}
+ .fortune-panel textarea{height:70px;min-height:70px}
+ .fortune-count{margin-bottom:2px}
+ .fortune-status{min-height:0;margin-top:6px}
+ .fortune-note{margin:16px 0 10px;font-size:13px}
+ .fortune-nav{position:sticky;bottom:0;padding:8px 0;background:#e9e4d7;z-index:5}
+ .fortune-help{margin:12px 0;font-size:13px}
+ .fortune-coins{margin:10px 0 18px}
+ .fortune-conversation{max-height:clamp(140px,33dvh,300px)}
+ .barber-shell{padding-top:14px;padding-bottom:16px}
+ .barber-title{padding-bottom:8px}.barber-title h1{font-size:29px}
+ .barber-layout{margin-top:12px;gap:24px}
+ .barber-stage{max-width:min(100%,calc((100dvh - 240px)*1.4286))}
+ .barber-aside{max-height:calc(100dvh - 220px);overflow-y:auto;overscroll-behavior:contain;padding-right:10px}
+ .barber-aside h2{font-size:24px;margin:8px 0}
+ .barber-tool{height:60px;margin:4px auto}
+ .barber-aside p{margin:8px 0;font-size:15px;line-height:1.65}
+ .barber-steps{margin:0 0 8px}
+ .barber-talk{min-height:0;padding-top:10px;margin-top:12px}
+ .barber-next{position:sticky;bottom:0;z-index:3}
+ .barber-actions{margin:0;position:fixed;bottom:0;left:4%;right:4%;background:#e8dfcb;padding:8px 0;z-index:4;border-top:1px solid #a99573}
+ .barber-shell{padding-bottom:82px}
+ .barber-footnote{margin-top:8px}
+ .book-shell .people-overview{padding-top:12px}
+ .book-shell .people-group{padding-block:12px;gap:8px}
+ .book-shell .group-person,.book-shell .group-person:nth-child(2n),.book-shell .group-person:nth-child(3n){height:150px}
+ .book-shell .group-person img,.book-shell .group-person .drink-person{height:112px!important;max-height:112px}
+ .book-shell .people-index{width:min(100%,320px);padding:24px;min-height:300px;aspect-ratio:auto}
+ .book-shell .people-index h2{font-size:28px;margin:8px 0}
+ .book-shell .people-caption{font-size:13px!important;line-height:1.6;margin-top:8px}
+ .monk-shell{padding:80px 4% 16px}
+ .monk-mast h1{font-size:32px;margin:4px 0}
+ .monk-progress{padding:9px 0;margin:12px 0;gap:18px;font-size:13px}
+ .monk-dialogue-layout{height:calc(100dvh - 215px);min-height:0}
+ .monk-portrait{height:100%;min-height:0;padding:6px 28px 22px 10px}
+ .monk-portrait>img{height:100%;max-height:100%;width:100%}
+ .monk-talk{height:100%;min-height:0;display:flex;flex-direction:column;align-self:stretch;padding:0 0 0 28px;overflow:hidden}
+ .monk-talk h2{font-size:29px;line-height:1.4;margin:6px 0 10px;flex-shrink:0}
+ .monk-words{min-height:60px;overflow-y:auto;flex:1;font-size:16px;line-height:1.8}
+ .monk-words p{margin-bottom:10px}
+ .monk-choices{margin-top:10px;gap:6px;flex-shrink:0}
+ .monk-choice{font-size:15px;padding:9px 13px;line-height:1.6}
+ .monk-footnote{margin-top:8px;font-size:12px}
+ .monk-fiction-note{margin-top:12px;font-size:12px}
+ .monk-puzzle-head{margin-bottom:12px}.monk-puzzle-head h2{font-size:25px;margin:4px 0}.monk-puzzle-head p{margin:4px 0}
+ .monk-puzzle-grid{gap:20px}
+ .monk-evidence-list{max-height:calc(100dvh - 300px);overflow-y:auto;padding-right:10px;min-height:0}
+ .monk-evidence-detail{min-height:0;padding-top:10px}
+ .monk-map{height:clamp(170px,calc(100dvh - 385px),300px);max-height:none;aspect-ratio:auto}
+ .monk-map-label{margin-bottom:6px}
+ .monk-route-slot{padding:6px 8px}
+ .monk-puzzle-feedback{min-height:0;margin:6px 0;padding:8px}
+ .monk-map-actions{gap:8px}.monk-map-actions button{padding:8px 12px}
+ .monk-shell:has(.monk-puzzle-grid){height:100dvh;min-height:0;display:grid;grid-template-rows:48px 38px 64px minmax(0,1fr);gap:6px;padding:76px 4% 12px}
+ .monk-shell:has(.monk-puzzle-grid) .monk-progress{margin:0;padding:8px 0}
+ .monk-shell:has(.monk-puzzle-grid) .monk-puzzle-head{margin:0;min-height:0}
+ .monk-puzzle-head .eyebrow{display:none}
+ .monk-puzzle-head h2{font-size:24px;line-height:1.3;margin:2px 0}
+ .monk-puzzle-head p{font-size:14px;line-height:1.6;margin:2px 0}
+ .monk-puzzle-grid{height:100%;min-height:0;align-items:stretch}
+ .monk-puzzle-grid .monk-evidence-list{max-height:100%;height:100%;min-height:0}
+ .monk-map-panel{display:grid;grid-template-rows:22px minmax(100px,1fr) 44px minmax(32px,auto) 44px;gap:5px;min-height:0;height:100%}
+ .monk-map-panel .monk-map{height:100%;min-height:0;margin:0}
+ .monk-map-panel .monk-map-label{margin:0}
+ .monk-map-panel .monk-route-slots{margin:0;gap:8px}
+ .monk-map-panel .monk-route-slot{padding:4px 8px;min-height:0;line-height:1.3}
+ .monk-map-panel .monk-route-slot small{font-size:12px}
+ .monk-map-panel .monk-route-slot span{font-size:14px}
+ .monk-map-panel .monk-puzzle-feedback{margin:0;padding:5px 8px;font-size:13px;line-height:1.5;min-height:0}
+ .monk-map-panel .monk-map-actions{margin:0;min-height:0;flex-wrap:nowrap}
+ .ending.end .story-card{margin:84px auto 24px;padding:22px 32px}
+ .ending.end .story-card h1{font-size:34px;margin:14px 0 18px}
+ .ending.end .story-card p{font-size:17px;line-height:1.65;margin:12px 0}
+ .ending.end .story-card .choice{padding:10px 0;margin-top:8px}
+ .story-card{padding-top:88px;padding-bottom:24px}
+ .opening .opening-card{top:90px;max-height:calc(100dvh - 170px);overflow-y:auto}
+ .opening .opening-card h2{font-size:32px;line-height:1.5;margin:12px 0}
+ .opening .opening-card p{font-size:17px;line-height:1.7}
+}
+@media(min-width:701px) and (max-width:999px) and (max-height:650px){
+ .ui-topbar .brand{font-size:19px}.ui-topbar .ui-nav{gap:10px}
+ .barber-layout{grid-template-columns:minmax(0,1fr) 260px}
+ .barber-stage{max-width:min(100%,calc((100dvh - 230px)*1.4286))}
+ .barber-aside{max-height:calc(100dvh - 170px);overflow:auto}
+ .barber-actions{position:sticky;bottom:0;background:#e8dfcb;padding-block:8px;z-index:4}
+}
+@media(min-width:1000px) and (min-height:741px){
+ .monk-shell:has(.monk-puzzle-grid){height:100dvh;min-height:0;display:grid;grid-template-rows:64px 48px 80px minmax(0,1fr);gap:8px;padding:92px 4% 16px}
+ .monk-shell:has(.monk-puzzle-grid) .monk-progress{margin:0;padding:10px 0}
+ .monk-shell:has(.monk-puzzle-grid) .monk-puzzle-head{margin:0;min-height:0}
+ .monk-puzzle-grid{height:100%;min-height:0;align-items:stretch}
+ .monk-puzzle-grid .monk-evidence-list{max-height:100%;height:100%;min-height:0;overflow-y:auto}
+ .monk-map-panel{display:grid;grid-template-rows:24px minmax(140px,1fr) 62px minmax(36px,auto) 48px;gap:6px;min-height:0;height:100%}
+ .monk-map-panel .monk-map{height:100%;max-height:none;min-height:0;margin:0;aspect-ratio:auto}
+ .monk-map-panel .monk-map-label,.monk-map-panel .monk-route-slots,.monk-map-panel .monk-puzzle-feedback,.monk-map-panel .monk-map-actions{margin:0}
+ .monk-map-panel .monk-map-actions{flex-wrap:nowrap}
+}
+@media(max-width:999px){
+ /* Reading and touch layouts scroll naturally rather than clip controls. */
+ .drink-screen.screen{height:auto;min-height:100dvh;overflow:visible}
+ .drink-screen .drink-layout{min-height:0;overflow:visible}
+ .drink-screen .drink-header{position:sticky;top:0;z-index:15}
+}
+@media(max-height:480px) and (min-width:1000px){
+ /* Very short windows keep explicit local scrolling as an escape route. */
+ .drink-screen .drink-main{grid-template-rows:70px auto}
+ .monk-dialogue-layout{height:auto;min-height:330px}
+}
+
+/* ==== 3/3 首页、印章、字体、光标与画卷呈现校准（原 presentation-update.css，2026-11-09~11-12） ==== */
+/* Home: one primary action, one quiet shortcut, replay at the page edge. */
+.home .hero-content{display:flex;flex-direction:column;align-items:center;padding-bottom:64px}
+.home .seal{box-shadow:none;min-width:184px;letter-spacing:.08em}
+.home-direct,.home-replay{background:transparent;border:0;color:#e7ddc5;font-size:15px;font-weight:400;letter-spacing:.12em;min-height:44px;padding:10px 12px}
+.home-direct{display:block;margin:16px auto 0;opacity:.85}
+.home-replay{position:absolute;right:4%;bottom:24px;z-index:5;font-size:13px;opacity:.7}
+.home-direct:hover,.home-replay:hover{opacity:1;color:#fff1d6;text-decoration:underline;text-underline-offset:7px}
+
+/* Zhang Zeduan's existing scroll asset, cropped to the riverside outskirts. */
+.opening .opening-original{background-size:auto 125%;background-position:86% 50%;filter:none;transition:none}
+.opening .opening-original:after{content:'';position:absolute;inset:0;background:#171c19a8}
+.opening .opening-card{left:10%;top:clamp(112px,24dvh,230px);width:min(620px,75%);max-width:none;max-height:calc(100dvh - 210px);overflow:auto;color:#f1e8d4;font-family:'Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun',serif;font-size:18px;line-height:1.8;text-shadow:0 2px 12px #151a1755}
+.opening .opening-card .eyebrow{color:#d6c18b;font-size:13px;letter-spacing:.22em;margin-bottom:24px}
+.opening .opening-card h2{max-width:18em;font-weight:400;font-size:clamp(28px,3vw,44px);line-height:1.65;letter-spacing:.07em;margin:0 0 24px;text-wrap:balance}
+.opening .opening-card p{max-width:30em;font-size:clamp(17px,1.3vw,21px);line-height:2;letter-spacing:.06em;margin:0;color:#e2d8c4;text-wrap:pretty}
+.opening .opening-card .link{display:inline-flex;align-items:center;gap:14px;font-size:19px;line-height:1.5;letter-spacing:.14em;margin-top:36px;padding:10px 0;border-bottom:1px solid #b9a675;color:#f2e6cc}
+.opening .opening-card .link:hover{color:#dfc58b;border-color:#dfc58b}
+.opening .skip,.opening .frame-counter{bottom:28px;font-size:13px;color:#d1c5ab;letter-spacing:.1em}
+.opening .skip{padding:10px 0;min-height:44px}
+
+/* Invisible shop hit areas must not draw rectangular hover/focus outlines. */
+.scroll-world :is(.drink-shop-hit,.barber-shop-hit),
+.scroll-world :is(.drink-shop-hit,.barber-shop-hit):is(:hover,:focus,:focus-visible,:active){outline:none!important;border:0!important;box-shadow:none!important;background:transparent!important}
+.scroll-world .hotspot:is(:focus,:focus-visible){outline:none!important}
+.scroll-world .hotspot:focus-visible{box-shadow:0 0 0 5px #eee0a666!important}
+.scroll-viewport:is(:focus,:focus-visible){outline:none!important}
+.scroll-world:has(.drink-shop-hit:focus-visible) .drink-stall-pin,
+.scroll-world:has(.barber-shop-hit:focus-visible) .barber-pin{box-shadow:0 0 0 7px #eee0a688!important}
+
+@media(max-width:700px){
+ .home-replay{right:6%;bottom:16px;font-size:12px}
+ .opening .opening-card{left:8%;width:84%;max-width:84%;top:112px;max-height:calc(100dvh - 210px)}
+ .opening .opening-card h2{font-size:28px;letter-spacing:.04em;margin-bottom:20px}
+ .opening .opening-card .eyebrow{margin-bottom:18px;font-size:12px}
+ .opening .opening-card .link{font-size:17px;margin-top:24px}
+ .opening .opening-original{background-position:88% center}
+}
+@media(max-height:600px){
+ .opening .opening-card{top:90px;max-height:calc(100dvh - 165px)}
+ .opening .opening-card .eyebrow{margin-bottom:12px}
+ .opening .opening-card h2{font-size:28px;margin-bottom:12px}
+ .opening .opening-card .link{margin-top:16px}
+}
+
+/* 首页取张择端全卷虹桥段；暗层独立于原图，保留原始素材。 */
+.home.hero:before{background:linear-gradient(90deg,rgba(22,19,14,.26),rgba(22,19,14,.13)),url('assets/home-hongqiao.webp') 50% 46%/cover no-repeat;filter:saturate(.72) brightness(.86);}
+.home.hero:after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 44%,rgba(15,20,18,.63) 0%,rgba(15,20,18,.40) 32%,rgba(15,20,18,.12) 72%),linear-gradient(0deg,rgba(12,17,15,.38),transparent 38%);}
+.home .hero-people{display:none;}
+.home .hero-content{position:relative;z-index:3;color:#fff3d6;text-shadow:0 2px 16px #15130ddd;}
+.home .hero-content .eyebrow{color:#ead29b;text-shadow:0 1px 7px #171b16;}
+.home .hero-content p{color:#f5ead1;}
+.home .home-direct,.home .home-replay{color:#f2e5c9;opacity:1;text-shadow:0 2px 8px #131711;}
+.home .seal{background:#a92d20;color:#fff2d7;border:1px solid #d69e69;text-shadow:none;}
+@media(max-width:700px){.home.hero:before{background-position:43% center;}.home.hero:after{background:linear-gradient(rgba(15,20,18,.32),rgba(15,20,18,.62) 45%,rgba(15,20,18,.30));}}
+
+.opening-film{display:grid;place-items:center;background:#10120f;min-height:100dvh;}
+.opening-film video{display:block;width:100%;height:100dvh;object-fit:contain;}
+.film-skip,.film-play{position:absolute;z-index:5;color:#f6ebd4;background:#17201de6;border:1px solid #b7a579;padding:12px 20px;min-height:44px;}
+.film-skip{right:4%;top:24px;}.film-play{left:50%;top:50%;transform:translate(-50%,-50%);}.film-play[hidden]{display:none;}
+
+.opening-film{width:100%;height:100dvh;background:#000;}
+.opening-film video{width:100%;height:100%;object-fit:cover;}
+.opening-film .film-skip{border:0;background:transparent;box-shadow:none;padding:10px 0;color:#f6ebd4;text-shadow:0 2px 8px #000;letter-spacing:.12em;}
+.opening-film .film-skip:hover{color:#fff;}
+.film-progress{position:absolute;z-index:6;left:2%;bottom:9px;width:96%;height:18px;margin:0;cursor:pointer;accent-color:#dfce9e;}
+
+/* 固定画面到视口中心，避免网格内容撑高造成位置偏移。 */
+.opening-film{position:fixed;inset:0;width:100vw;height:100dvh;min-height:0;display:block;overflow:hidden;}
+.opening-film video,.opening-film .film-last-frame{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;}
+.opening-film video::-webkit-media-controls{display:none!important;}
+.film-transition{z-index:9999;pointer-events:none;opacity:1;transition:opacity 1.3s ease-in-out;}
+.film-transition.film-fade-out{opacity:0;}
+@media(prefers-reduced-motion:reduce){.film-transition{transition-duration:.2s;}}
+
+.scroll-world .npc-seal{position:absolute;z-index:7;transform:translate(-50%,-50%);width:64px;height:64px;padding:5px;border:0;background:none;cursor:pointer;}
+.npc-seal img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 5px #ffe8a8) drop-shadow(0 0 11px #f6bf6088);animation:seal-breathe 3.2s ease-in-out infinite;}
+.npc-seal.is-complete img{animation:none;}
+@keyframes seal-breathe{0%,100%{transform:scale(.96);filter:drop-shadow(0 0 4px #ffe8a8aa)}50%{transform:scale(1.12);filter:drop-shadow(0 0 8px #ffe9af) drop-shadow(0 0 16px #f6bf60aa)}}
+.npc-seal-preview{position:fixed;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;pointer-events:none;color:#fff0cc;text-shadow:0 2px 6px #241d14,0 0 12px #241d14;}
+.npc-seal-preview[hidden]{display:none;}.npc-seal-preview img{max-height:calc(100% - 80px);max-width:100%;object-fit:contain;filter:drop-shadow(0 10px 14px #19170e99);animation:portrait-float 4s ease-in-out infinite;}.npc-seal-preview h2{margin:8px 0;font-size:25px;letter-spacing:.15em;font-weight:400;}.npc-seal-enter{pointer-events:auto;background:#24352bd9;border:0;border-bottom:1px solid #c9b47c;color:#f8ebc8;padding:8px 18px;font-size:15px;}
+@keyframes portrait-float{50%{transform:translateY(-5px)}}
+.scroll.is-art-only .npc-seal,.scroll.is-art-only .npc-seal-preview{display:none;}
+@media(prefers-reduced-motion:reduce){.npc-seal img,.npc-seal-preview img{animation:none;}}
+
+/* 恢复印章原始朱红与光晕，保留悬停交互。 */
+.npc-seal img{filter:drop-shadow(0 0 5px #ffe8a8) drop-shadow(0 0 11px #f6bf6088);animation:seal-breathe 3.2s ease-in-out infinite;}
+.npc-seal.is-complete img{animation:none;}
+@keyframes seal-soft-breathe{0%,100%{transform:scale(.98);filter:saturate(.42) brightness(.76) drop-shadow(0 0 3px #e5ce9270)}50%{transform:scale(1.07);filter:saturate(.42) brightness(.82) drop-shadow(0 0 7px #e5ce9299)}}
+.npc-seal-preview img{max-height:calc(100% - 48px);}
+@media(prefers-reduced-motion:reduce){.npc-seal img{animation:none;}}
+
+
+/* 画卷浮层统一为半透明墨黑底。 */
+.scroll .story-guide,.scroll .scroll-caption,.scroll .scroll-drink-guide{background:rgba(0,0,0,.60);}
+.scroll .scroll-drink-guide:hover{background:rgba(0,0,0,.72);}
+
+.scroll .story-guide,.scroll .scroll-caption,.scroll .scroll-drink-guide{background:rgba(0,0,0,.30);border:0;box-shadow:none;}
+.scroll .scroll-drink-guide:hover{background:rgba(0,0,0,.40);border:0;box-shadow:none;}
+
+.scroll .story-guide,.scroll .scroll-caption,.scroll .scroll-drink-guide,.scroll .scroll-drink-guide:hover{background:rgba(0,0,0,.50);border:0;box-shadow:none;}
+.scroll .scroll-drink-guide{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:12px 20px;line-height:1.4;transition:background-color 300ms ease,color 300ms ease,box-shadow 300ms ease,transform 300ms ease;}
+.scroll .scroll-drink-guide:not(:disabled):hover,.scroll .scroll-drink-guide:focus-visible{background:rgba(40,33,21,.48);color:#f5e8c6;box-shadow:inset 0 0 0 1px rgba(210,185,125,.65);}
+.scroll .scroll-drink-guide:focus-visible{outline:1px solid #d2b97d;outline-offset:3px;}
+.scroll-guide-arrow{display:inline-block;transition:transform 300ms ease;}
+.scroll .scroll-drink-guide:not(:disabled):hover .scroll-guide-arrow,.scroll .scroll-drink-guide:focus-visible .scroll-guide-arrow{transform:translateX(4px);}
+.scroll .scroll-drink-guide:not(:disabled):active{transform:translateY(1px);}
+@media(prefers-reduced-motion:reduce){.scroll .scroll-drink-guide,.scroll-guide-arrow{transition:none;}.scroll .scroll-drink-guide .scroll-guide-arrow,.scroll .scroll-drink-guide:not(:disabled):active{transform:none;}}
+
+.intro-guide-card{position:absolute;z-index:40;left:50%;bottom:calc(var(--roll-height) + 22px);transform:translateX(-50%);width:min(480px,calc(100% - 32px));padding:22px 26px;background:rgba(0,0,0,.5);color:#f6ecd5;border:0;animation:intro-arrive .6s ease;}
+.intro-guide-card h2{font-size:23px;font-weight:400;line-height:1.5;margin:12px 0;}.intro-guide-card p{font-size:16px;line-height:1.9;margin:0 0 16px;}.intro-guide-card small{color:#ddcda8;letter-spacing:.1em}.intro-guide-actions{display:flex;justify-content:space-between;gap:16px;}.intro-guide-actions button,.home-guide-replay{background:none;border:0;color:#f4e8ce;padding:10px 0;min-height:44px;font:inherit;cursor:pointer;}.home-guide-replay{position:absolute;left:4%;bottom:24px;z-index:5;font-size:13px;opacity:.8}.intro-guide-top{top:84px;bottom:auto;}.intro-guide-gesture{text-align:center;font-size:34px;animation:intro-hand 1.8s ease-in-out infinite;}.intro-guide-gesture[hidden]{display:none}.intro-guide-highlight{outline:2px solid #f0dfaa!important;outline-offset:6px;filter:drop-shadow(0 0 9px #e0c788);}
+@keyframes intro-hand{50%{transform:translateX(20px)}}@keyframes intro-arrive{from{opacity:0}to{opacity:1}}
+@media(max-width:700px){.intro-guide-card{padding:16px 18px}.intro-guide-card h2{font-size:20px}.intro-guide-card p{font-size:14px}.intro-guide-top{top:70px}.home-guide-replay{bottom:16px}}
+@media(prefers-reduced-motion:reduce){.intro-guide-card,.intro-guide-gesture{animation:none;}}
+
+.scroll .scroll-caption{width:66px;min-width:66px;max-width:66px;padding:10px 0;text-align:center;border:0;background:rgba(0,0,0,.5);}
+.scroll-caption>span{position:relative;display:block;height:22px;line-height:22px;overflow:hidden;}
+.scroll-caption>span>span{display:block;white-space:nowrap;}.scroll-caption .region-old{position:absolute;inset:0;}
+.scroll-regions{position:relative;}.scroll-regions button{transition:color .3s ease;border-bottom-color:transparent!important;}
+.region-underline{position:absolute;left:0;bottom:0;height:1px;background:#984d38;pointer-events:none;transition:transform .3s ease,width .3s ease;}
+@media(prefers-reduced-motion:reduce){.region-underline,.scroll-regions button{transition:none;}}
+
+@font-face{font-family:'Region Inscription';src:url('assets/fonts/MaShanZheng-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
+.scroll .scroll-caption{background:transparent;border:0;box-shadow:none;width:68px;min-width:68px;max-width:68px;height:120px;padding:6px;color:#30271c;font-family:'Region Inscription',serif;font-size:40px;font-weight:400;letter-spacing:.12em;text-shadow:0 0 3px #eee0ba99;bottom:calc(var(--roll-height) + 24px);}
+.scroll .scroll-caption>span{position:relative;display:block;width:56px;height:108px;line-height:1.2;overflow:hidden;}
+.scroll .scroll-caption>span>span{position:absolute;inset:6px 0;display:block;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;line-height:56px;}
+@media(max-width:700px){.scroll .scroll-caption{width:56px;min-width:56px;max-width:56px;height:100px;font-size:32px;padding:4px;left:16px;bottom:calc(var(--roll-height) + 16px);}.scroll .scroll-caption>span{width:48px;height:92px;}.scroll .scroll-caption>span>span{line-height:48px;}}
+
+@font-face{font-family:'Region Small Seal';src:url('assets/fonts/chongxi/chongxi_seal.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;}
+.scroll .scroll-caption{font-family:'Region Small Seal',serif;font-size:48px;color:#21180e;height:142px;letter-spacing:.08em;text-shadow:0 0 2px #f1e3b7,0 0 5px #edddbba6;}
+.scroll .scroll-caption>span{height:130px;}.scroll .scroll-caption>span>span{inset:7px 0;}
+@media(max-width:700px){.scroll .scroll-caption{font-size:38px;height:116px;}.scroll .scroll-caption>span{height:108px;}}
+
+/* 小篆区域题字以米白色提高画卷上的辨识度。 */
+.scroll .scroll-caption{color:#fff4dc;text-shadow:0 1px 3px rgba(27,21,13,.85),0 0 7px rgba(27,21,13,.45);}
+
+/* 原画风格放大镜仅作用于可探索的画卷；使用原生光标，无跟随层。 */
+@media (hover:hover) and (pointer:fine){
+ .scroll .scroll-viewport{cursor:url('assets/cursors/scroll-magnifier-72.png') 28 28,zoom-in;}
+ .scroll .scroll-viewport.is-dragging,.scroll .scroll-viewport.is-dragging *{cursor:grabbing!important;}
+ .scroll .scroll-viewport :is(button,a,[role=button]){cursor:pointer;}
+}
+.scroll .story-guide{cursor:default;}.scroll .story-guide p{cursor:text;}
+/* Keep the painting open; carry the story in the navigation action. */
+.scroll .scroll-caption{top:98px!important;bottom:auto!important;left:3%!important;background:transparent!important;pointer-events:none;}
+.scroll .scroll-drink-guide{flex-wrap:wrap;max-width:310px;}
+.scroll .scroll-story-hint{display:block;flex-basis:100%;font-size:12px;line-height:1.6;opacity:.85;white-space:normal;}
+@media(max-width:700px){.scroll .scroll-caption{top:72px!important;left:12px!important;}.scroll .scroll-drink-guide{max-width:240px;}.scroll .scroll-story-hint{font-size:11px;}}
+
+
+
+.painting-refraction{position:absolute;z-index:1;pointer-events:none;display:block;}
+.painting-refraction[hidden]{display:none;}
+
+/* Local flow cursor: loaded image only, transparent lens, stable warm outline. */
+.painting-flow-pointer{position:fixed;left:0;top:0;width:72px;height:72px;pointer-events:none;z-index:9999;object-fit:contain;filter:contrast(1.18) drop-shadow(0 0 .7px #fff1d1) drop-shadow(0 0 2px #e8ce9570);will-change:transform;}
+.painting-flow-pointer[hidden]{display:none;}
+@media(hover:hover) and (pointer:fine){.scroll .scroll-viewport.flow-pointer-ready{cursor:none;}}
+/* Deep bronze frame and a clear 1.25x lens; only a small upper-left arc catches light. */
+.painting-flow-pointer{width:96px;height:96px;filter:none;}
+.painting-flow-pointer .painting-lens,.painting-flow-pointer .painting-lens-frame,.painting-flow-pointer .painting-lens-glint{position:absolute;inset:0;width:96px;height:96px;pointer-events:none;}
+.painting-flow-pointer .painting-lens-frame{filter:brightness(.55) contrast(1.35) saturate(.65);object-fit:contain;}
+.painting-flow-pointer .painting-lens-glint{filter:none;}

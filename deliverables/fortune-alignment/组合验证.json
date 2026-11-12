@@ -1,0 +1,203 @@
+{
+  "rows": [
+    {
+      "values": [
+        2,
+        2,
+        2
+      ],
+      "visible": [
+        2,
+        2,
+        2
+      ],
+      "textures": [
+        "coin-back.png",
+        "coin-back.png",
+        "coin-back.png"
+      ],
+      "sum": 6,
+      "yang": false,
+      "moving": true,
+      "centerErrorPx": 0,
+      "pass": true
+    },
+    {
+      "values": [
+        3,
+        2,
+        2
+      ],
+      "visible": [
+        3,
+        2,
+        2
+      ],
+      "textures": [
+        "coin-front.png",
+        "coin-back.png",
+        "coin-back.png"
+      ],
+      "sum": 7,
+      "yang": true,
+      "moving": false,
+      "centerErrorPx": 0,
+      "pass": true
+    },
+    {
+      "values": [
+        2,
+        3,
+        2
+      ],
+      "visible": [
+        2,
+        3,
+        2
+      ],
+      "textures": [
+        "coin-back.png",
+        "coin-front.png",
+        "coin-back.png"
+      ],
+      "sum": 7,
+      "yang": true,
+      "moving": false,
+      "centerErrorPx": 2.4980018054066022e-14,
+      "pass": true
+    },
+    {
+      "values": [
+        3,
+        3,
+        2
+      ],
+      "visible": [
+        3,
+        3,
+        2
+      ],
+      "textures": [
+        "coin-front.png",
+        "coin-front.png",
+        "coin-back.png"
+      ],
+      "sum": 8,
+      "yang": false,
+      "moving": false,
+      "centerErrorPx": -2.4980018054066022e-14,
+      "pass": true
+    },
+    {
+      "values": [
+        2,
+        2,
+        3
+      ],
+      "visible": [
+        2,
+        2,
+        3
+      ],
+      "textures": [
+        "coin-back.png",
+        "coin-back.png",
+        "coin-front.png"
+      ],
+      "sum": 7,
+      "yang": true,
+      "moving": false,
+      "centerErrorPx": 0,
+      "pass": true
+    },
+    {
+      "values": [
+        3,
+        2,
+        3
+      ],
+      "visible": [
+        3,
+        2,
+        3
+      ],
+      "textures": [
+        "coin-front.png",
+        "coin-back.png",
+        "coin-front.png"
+      ],
+      "sum": 8,
+      "yang": false,
+      "moving": false,
+      "centerErrorPx": 0,
+      "pass": true
+    },
+    {
+      "values": [
+        2,
+        3,
+        3
+      ],
+      "visible": [
+        2,
+        3,
+        3
+      ],
+      "textures": [
+        "coin-back.png",
+        "coin-front.png",
+        "coin-front.png"
+      ],
+      "sum": 8,
+      "yang": false,
+      "moving": false,
+      "centerErrorPx": 0,
+      "pass": true
+    },
+    {
+      "values": [
+        3,
+        3,
+        3
+      ],
+      "visible": [
+        3,
+        3,
+        3
+      ],
+      "textures": [
+        "coin-front.png",
+        "coin-front.png",
+        "coin-front.png"
+      ],
+      "sum": 9,
+      "yang": true,
+      "moving": true,
+      "centerErrorPx": 2.4980018054066022e-14,
+      "pass": true
+    }
+  ],
+  "centers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    -2.4980018054066022e-14,
+    0,
+    0,
+    0,
+    -2.4980018054066022e-14,
+    -4.9960036108132044e-14,
+    -4.9960036108132044e-14,
+    0,
+    2.4980018054066022e-14,
+    0,
+    0,
+    0,
+    2.4980018054066022e-14
+  ],
+  "pass": true
+}

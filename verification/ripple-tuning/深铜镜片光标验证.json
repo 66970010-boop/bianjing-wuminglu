@@ -1,0 +1,21 @@
+{
+  "actual": {
+    "hidden": false,
+    "cursor": "none",
+    "width": 95.99380493164062,
+    "height": 95.99384307861328,
+    "hotspot": [
+      699.9999593098959,
+      399.99998982747394
+    ],
+    "count": 1
+  },
+  "dragHidden": true,
+  "releaseRestored": true,
+  "exitCleaned": true,
+  "assetFailure": {
+    "ready": false,
+    "hidden": true,
+    "cursor": "url(\"http://localhost:3002/assets/cursors/scroll-magnifier-72.png\") 28 28, zoom-in"
+  }
+}
