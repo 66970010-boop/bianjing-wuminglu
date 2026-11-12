@@ -15,6 +15,7 @@
       ? new URL('sfx/', cs.src).href
       : new URL(location.pathname.includes('/toys/') ? '../assets/audio/sfx/' : 'assets/audio/sfx/', location.href).href;
   const KEY = 'bj-sfx-v1';
+  const VERSION = '20261113b';
 
   /* 每个音效的默认音量、并发声部与最小间隔（毫秒） */
   const DEFS = {
@@ -79,7 +80,7 @@
   function defOf(name) { return DEFS[name] || { vol: .4, max: 2, gap: 60 }; }
   function createVoice(name) {
     const d = defOf(name);
-    const el = new Audio(BASE + name + '.wav');
+    const el = new Audio(window.__SFX_DATA && window.__SFX_DATA[name] ? window.__SFX_DATA[name] : BASE + name + '.wav?v=' + VERSION);
     el.preload = 'auto';
     el.volume = 0;
     el.addEventListener('error', () => {}, { once: true });

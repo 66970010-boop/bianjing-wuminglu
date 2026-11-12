@@ -531,6 +531,34 @@ function normalize(buf, peak = 0.86) {
   for (let i = 0; i < buf.length; i++) buf[i] *= g;
   return buf;
 }
+/* 感知响度归一：以最响 400ms 窗的 RMS 为基准（瞬态与持续音都能公平比较），
+   再用 tanh 软限幅控峰，避免不同音效忽大忽小 */
+function normalizeRms(buf, targetDb = -20) {
+  const win = Math.max(64, Math.round(SR * 0.4)), hop = Math.max(32, Math.round(SR * 0.1));
+  let maxRms = 0;
+  if (buf.length <= win) {
+    let sum = 0; for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+    maxRms = Math.sqrt(sum / Math.max(1, buf.length));
+  } else {
+    for (let start = 0; start + win <= buf.length; start += hop) {
+      let sum = 0;
+      for (let i = start; i < start + win; i++) sum += buf[i] * buf[i];
+      maxRms = Math.max(maxRms, Math.sqrt(sum / win));
+    }
+    // 尾部不足一窗
+    const start = buf.length - win;
+    let sum = 0; for (let i = start; i < buf.length; i++) sum += buf[i] * buf[i];
+    maxRms = Math.max(maxRms, Math.sqrt(sum / win));
+  }
+  if (maxRms < 1e-7) return buf;
+  const gain = Math.pow(10, targetDb / 20) / maxRms;
+  for (let i = 0; i < buf.length; i++) {
+    const v = buf[i] * gain;
+    // tanh 软限幅：<0.7 近似线性，之上平滑压峰
+    buf[i] = v > 0.7 || v < -0.7 ? Math.sign(v) * (0.7 + 0.3 * Math.tanh((Math.abs(v) - 0.7) / 0.3)) : v;
+  }
+  return buf;
+}
 function fadeEdges(buf, ms = 4) {
   const n = Math.round(ms * SR / 1000);
   for (let i = 0; i < Math.min(n, buf.length); i++) {
@@ -555,7 +583,9 @@ function writeWav(file, samples) {
 const manifest = [];
 let totalBytes = 0;
 for (const [name, dur, buf, desc] of DEFS) {
-  normalize(buf, name.startsWith('ui-tap') ? 0.7 : 0.86);
+  // 统一到相近的感知响度；轻点类稍收敛，场景/氛围类保留动态
+  const target = name.startsWith('ui-tap') ? -23 : name === 'scroll-open' || name === 'temple-bell' || name === 'gong-soft' ? -22 : -20;
+  normalizeRms(buf, target);
   fadeEdges(buf, name === 'simmering' ? 12 : 4);
   const file = name + '.wav';
   writeWav(name, buf);
