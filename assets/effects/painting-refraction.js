@@ -7,14 +7,14 @@ window.mountPaintingRefraction=function(root,viewport,painting){
  const pending=[],uniforms={},resources=[];let width=1,height=1;
  // Lens samples only the original painting: NPCs, captions and other UI never enter its pixels.
  const pointer=document.createElement('div');pointer.className='painting-flow-pointer';pointer.hidden=true;pointer.setAttribute('aria-hidden','true');
- const lens=document.createElement('canvas'),frame=document.createElement('img');lens.className='painting-lens';frame.className='painting-lens-frame';frame.alt='';frame.width=frame.height=96;pointer.append(lens,frame);
+ const lens=document.createElement('canvas'),frame=document.createElement('img');lens.className='painting-lens';frame.className='painting-lens-frame';frame.alt='';frame.width=frame.height=128;pointer.append(lens,frame);
  const glint=document.createElementNS('http://www.w3.org/2000/svg','svg');glint.setAttribute('viewBox','0 0 96 96');glint.classList.add('painting-lens-glint');glint.innerHTML='<path d="M 12 36 A 25 25 0 0 1 35 12" fill="none" stroke="#d1b780" stroke-width=".9" stroke-linecap="round" opacity=".6"/>';pointer.append(glint);
  const source=document.createElement('canvas'),sourceCtx=source.getContext('2d',{willReadFrequently:true}),lensCtx=lens.getContext('2d');
- const POINTER_SIZE=96,HOTSPOT=28*96/72,LENS_RADIUS=27;let pointerReady=false,lensFrame=0,mouse=null,lastPointerInput=null;
+ const POINTER_SIZE=128,HOTSPOT=28*128/72,LENS_RADIUS=36;let pointerReady=false,lensFrame=0,mouse=null,lastPointerInput=null;
  function hidePointer(){pointer.hidden=true;cancelAnimationFrame(lensFrame);lensFrame=0;}
  function pointerMode(){viewport.classList.toggle('flow-pointer-ready',pointerReady&&fine.matches);if(!fine.matches)hidePointer();}
  function renderLens(){lensFrame=0;if(pointer.hidden||!mouse||!sourceCtx||!lensCtx||!painting.naturalWidth)return;try{
-  const ratio=Math.min(devicePixelRatio||1,1.25),n=Math.round(POINTER_SIZE*ratio),k=n/POINTER_SIZE,c=HOTSPOT*k,r=LENS_RADIUS*k;
+  const ratio=Math.min(Math.max(devicePixelRatio||1,2),2),n=Math.round(POINTER_SIZE*ratio),k=n/POINTER_SIZE,c=HOTSPOT*k,r=LENS_RADIUS*k;
   if(lens.width!==n){lens.width=lens.height=source.width=source.height=n;}
   sourceCtx.clearRect(0,0,n,n);const ir=painting.getBoundingClientRect(),scale=painting.naturalWidth/ir.width;
   sourceCtx.drawImage(painting,(mouse.x-ir.left-HOTSPOT)*scale,(mouse.y-ir.top-HOTSPOT)*scale,POINTER_SIZE*scale,POINTER_SIZE*scale,0,0,n,n);
@@ -29,7 +29,7 @@ window.mountPaintingRefraction=function(root,viewport,painting){
   }lensCtx.putImageData(out,0,0);
  }catch(e){lensCtx.clearRect(0,0,lens.width,lens.height);}}
  function scheduleLens(){if(!pointer.hidden&&!lensFrame)lensFrame=requestAnimationFrame(renderLens);}
- frame.addEventListener('load',()=>{pointerReady=true;pointerMode();if(lastPointerInput)updatePointer(lastPointerInput);},{signal});frame.addEventListener('error',()=>{pointerReady=false;pointerMode();hidePointer();},{signal});document.body.append(pointer);frame.src='assets/cursors/scroll-magnifier-72.webp';
+ frame.addEventListener('load',()=>{pointerReady=true;pointerMode();if(lastPointerInput)updatePointer(lastPointerInput);},{signal});frame.addEventListener('error',()=>{pointerReady=false;pointerMode();hidePointer();},{signal});document.body.append(pointer);frame.src='assets/cursors/scroll-magnifier-original.png';
  function updatePointer(e){lastPointerInput=e;const active=pointerReady&&fine.matches&&e.pointerType!=='touch'&&!e.buttons&&viewport.contains(e.target)&&(!e.target.closest('button,a,[role=button],.story-guide')||Boolean(e.target.closest('.npc-seal')));
   if(!active){hidePointer();return;}pointer.hidden=false;mouse={x:e.clientX,y:e.clientY};pointer.style.transform='translate3d('+(e.clientX-HOTSPOT)+'px,'+(e.clientY-HOTSPOT)+'px,0)';scheduleLens();}
  document.addEventListener('pointermove',updatePointer,{signal,passive:true});document.addEventListener('pointerup',updatePointer,{signal,passive:true});document.addEventListener('visibilitychange',hidePointer,{signal});

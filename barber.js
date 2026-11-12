@@ -16,12 +16,12 @@ function mountBarber(root){
  ['修面','razor','按住刀刃，轻轻划过下颌旁的小杂毛。先整理一侧，再整理另一侧。','刀镊匠：“问他是谁？我只知船家见了他，笑着接过布巾。”']];
  const old=[4,5].includes(state.barberSession?.version)?state.barberSession:null;
  let step=old?.step||0,wet=old?.wet||Array(6).fill(0),smooth=old?.smooth||Array(6).fill(0),white=old?.white||Array(4).fill(0),beard=old?.beard||Array(3).fill(0),clean=old?.clean||Array(16).fill(0);
- let loaded=false,disposed=false,resetting=false,done=false,pointer=null,cursor=null,muted=true,audio,lastSound=0,raf,finishedAt=0,last=performance.now(),clock=0,blink=0,nextBlink=2.5,gaze=0,nextGaze=1.8,eyeX=0,particles=[],feedback='',feedbackUntil=0;
+ let loaded=false,disposed=false,resetting=false,done=false,pointer=null,cursor=null,muted=!(window.SFX?.getState().audible??true),lastSound=0,raf,finishedAt=0,last=performance.now(),clock=0,blink=0,nextBlink=2.5,gaze=0,nextGaze=1.8,eyeX=0,particles=[],feedback='',feedbackUntil=0;
  let faceSide=0,dirty=false,saveAfter=0;
  const shownWet=wet.slice(),shownSmooth=smooth.slice();
  const shell=div('barber-shell','<div class="barber-title"><h1>毫末之间</h1><p>一梳一镊，片刻闲谈</p></div>'),layout=div('barber-layout'),stage=div('barber-stage'),canvas=document.createElement('canvas');
  canvas.width=1200;canvas.height=840;canvas.setAttribute('role','img');canvas.setAttribute('aria-label','按住并拖动工具整理须发；修须时点击须尾剪切');stage.append(canvas);const loading=div('barber-loading','正在备好刀镊…');stage.append(loading);const aside=div('barber-aside');layout.append(stage,aside);shell.append(layout);root.append(shell);
- const actions=div('barber-actions');actions.append(btn('← 返回刀镊铺',()=>{state.npc='barber';go('dialogue')}),btn('重新整理',()=>{resetting=true;delete state.barberSession;save();go('barber')}),btn('音效：关',()=>{}));const sound=actions.lastChild;sound.onclick=()=>{muted=!muted;sound.textContent='音效：'+(muted?'关':'开');ping()};shell.append(actions,div('barber-footnote','按实际接触位置整理 · 进度自动保存 · 无倒计时。人物为古画风格补绘，流程为游戏设计。'));
+ const actions=div('barber-actions');actions.append(btn('← 返回刀镊铺',()=>{state.npc='barber';go('dialogue')}),btn('重新整理',()=>{resetting=true;delete state.barberSession;save();go('barber')}),btn('音效：开',()=>{}));const sound=actions.lastChild;function paintSound(){muted=!(window.SFX?.getState().audible??true);sound.textContent='音效：'+(muted?'关':'开');sound.setAttribute('aria-pressed',String(!muted))}sound.onclick=()=>{const next=!window.SFX.getState().audible;window.SFX?.setMuted(!next);paintSound();if(next)window.SFX?.play('ui-tap')};document.addEventListener('sfxchange',paintSound);paintSound();shell.append(actions,div('barber-footnote','按实际接触位置整理 · 进度自动保存 · 无倒计时。人物为古画风格补绘，流程为游戏设计。'));
  const ctx=canvas.getContext('2d'),customer=new Image(),closedEyes=new Image(),happyCustomer=new Image(),tools={};
  const images=[new Promise((resolve,reject)=>{customer.onload=resolve;customer.onerror=reject;customer.src='assets/barber-customer-base.webp'})];
  images.push(new Promise((resolve,reject)=>{closedEyes.onload=resolve;closedEyes.onerror=reject;closedEyes.src='assets/barber-customer-closed.webp'}));
@@ -54,9 +54,9 @@ function mountBarber(root){
  }
  function updateAssist(){assistButtons.forEach((b,i)=>{const name=step===0?'浇湿第'+(i+1)+'束长发':step===1?'梳顺第'+(i+1)+'束长发':step===2?'拔出第'+(i+1)+'根白发':step===3?'修剪第'+(i+1)+'束须尾':'整理'+(i<8?'左':'右')+'侧第'+(i%8+1)+'处杂毛';const v=values()[i];b.textContent=name+' · '+Math.round(v*100)+'%';b.disabled=!loaded||done||v>=1;})}
   function update(){updateAssist();const r=ratio();progress.value=r;next.disabled=r<.999;status.textContent=r>=.999?'已整理妥当，可以继续。':step===2?'已拔出 '+white.filter(v=>v===1).length+' / 4 根白发':'已整理 '+Math.round(r*100)+'%';}
- function advance(){if(ratio()<.999)return;if(step<4){step++;cursor=null;pointer=null;feedback='';faceSide=0;checkpoint();panel()}else finish()}
- function finish(){done=true;finishedAt=clock;pointer=null;cursor=null;state.played.barber=true;state.clues.barberMemory=true;delete state.barberSession;save();aside.innerHTML='<div class="eyebrow">奉镜 · 收工</div><h2>面目如故</h2><p>须发整齐了。铜镜里，仍是那个奔忙的人。</p><div class="barber-talk">刀镊匠：“人是记得的。城东卖饼那位，总念着家门前的老槐树。”</div><div class="barber-result">拾得一段旧事<br>卖饼青年曾为船夫送来布巾。沿城东去，问起老槐树，他便知道你的来意。</div>';aside.append(btn('记入无名录 →',()=>{bookSelection='barber';bookTab='people';go('book')},'barber-next'),btn('返回画卷',()=>go('scroll'),'person-back'))}
- function ping(){if(muted||performance.now()-lastSound<100)return;lastSound=performance.now();try{audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.value=step===2?500:step===3?220:150;g.gain.setValueAtTime(.025,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.08);o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+.09)}catch{}}
+ function advance(){if(ratio()<.999)return;if(step<4){step++;cursor=null;pointer=null;feedback='';faceSide=0;checkpoint();window.SFX?.play('chime-gentle',{volume:.65});panel()}else finish()}
+ function finish(){done=true;finishedAt=clock;pointer=null;cursor=null;state.played.barber=true;state.clues.barberMemory=true;delete state.barberSession;save();window.SFX?.play('chime-complete',{volume:.8});window.SFX?.play('cloth',{volume:.6});aside.innerHTML='<div class="eyebrow">奉镜 · 收工</div><h2>面目如故</h2><p>须发整齐了。铜镜里，仍是那个奔忙的人。</p><div class="barber-talk">刀镊匠：“人是记得的。城东卖饼那位，总念着家门前的老槐树。”</div><div class="barber-result">拾得一段旧事<br>卖饼青年曾为船夫送来布巾。沿城东去，问起老槐树，他便知道你的来意。</div>';aside.append(btn('记入无名录 →',()=>{bookSelection='barber';bookTab='people';go('book')},'barber-next'),btn('返回画卷',()=>go('scroll'),'person-back'))}
+ function ping(){if(muted)return;const names=['water-pour','comb','tweezers','scissors','razor'];window.SFX?.play(names[step]||'ui-tap-soft',{volume:step===0?.55:.85,gap:step===0?680:undefined})}
  function camera(){if(done||step<2)return {s:1,x:0,y:0};if(step===2)return{s:2.35,x:-610,y:40};if(step===3)return{s:2.15,x:-520,y:-460};const left=clean.slice(0,8).every(v=>v===1);if(!pointer)faceSide=left?1:0;return{s:3.3,x:faceSide?-1180:-950,y:-650}}
  function shape(points,fill){ctx.fillStyle=fill;ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.fill()}
  function lockGeometry(i){const n=locks[i],wetness=shownWet[i],combed=shownSmooth[i],bend=[-61,-46,-53,56,42,68][i];
@@ -192,5 +192,5 @@ function mountBarber(root){
   particles=particles.filter(p=>{p.y+=dt*(p.white?-130:90);p.a+=dt;p.life-=dt;return p.life>0});if(loaded)draw();raf=requestAnimationFrame(tick)
  }
  panel();Promise.all(images).then(()=>{if(disposed)return;loaded=true;update();loading.remove();raf=requestAnimationFrame(tick)}).catch(()=>{loading.textContent='素材未载入，请完整解压后重试。'});
- window.barberCleanup=()=>{disposed=true;cancelAnimationFrame(raf);checkpoint();audio?.close();window.barberCleanup=null};
+ window.barberCleanup=()=>{disposed=true;cancelAnimationFrame(raf);checkpoint();window.barberCleanup=null};
 }

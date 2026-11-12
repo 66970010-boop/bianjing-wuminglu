@@ -15,7 +15,7 @@ function mountIntroGuide(root){
  if(i===4){const pins=[...root.querySelectorAll('.npc-seal')];target=pins.find(p=>{const r=p.getBoundingClientRect();return r.left>20&&r.right<innerWidth-20})||null;}
  if(i===5)target=root.querySelector('.story-guide');if(i===6)target=[...root.querySelectorAll('.topbar button')].find(b=>b.textContent==='无名录');target?.classList.add('intro-guide-highlight');timer=setTimeout(()=>armed=true,350);save();}
  function finish(status){g.status=status;save();introGuideCleanup()}
- function advance(){if(g.step>=steps.length-1){finish('completed');return}g.step++;draw()}
+ function advance(){if(g.step>=steps.length-1){window.SFX?.play('seal-stamp',{volume:.65});finish('completed');return}g.step++;window.SFX?.play('page-turn',{volume:.45});draw()}
  const viewport=root.querySelector('.scroll-viewport');viewport?.addEventListener('scroll',()=>{if(g.step===3&&armed)advance()},{signal,passive:true});root.addEventListener('click',e=>{if(e.target.closest('.npc-seal'))finish('completed')},{signal,capture:true});root.querySelector('.topbar')?.addEventListener('click',()=>finish('completed'),{signal,capture:true});
  introGuideCleanup=()=>{clearTarget();events.abort();card.remove();introGuideCleanup=()=>{}};draw();
 }

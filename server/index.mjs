@@ -79,7 +79,7 @@ async function api(req,res,url){
  finally{clearTimeout(timer);clearInterval(heartbeat);c.busy=false;active--;res.end();}
 }
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webp':'image/webp','.gif':'image/gif','.svg':'image/svg+xml','.otf':'font/otf','.ttf':'font/ttf','.mp4':'video/mp4','.mp3':'audio/mpeg','.wav':'audio/wav','.glb':'model/gltf-binary'};
-const topFiles=new Set(['intro-guide.js','ui-fixes.js','ui-overrides.css','story.js','story.css','index.html','collection.js','collection.css','monk.js','monk.css','fortune.js','fortune.css','fortune-core.js','barber.js','barber.css','drinks.js','drinks.css','motion.js','motion.css','people.css','responsive.css','scroll.js','scroll.css']);
+const topFiles=new Set(['intro-guide.js','ui-fixes.js','ui-overrides.css','story.js','story.css','baker-ending.js','baker-ending.css','index.html','collection.js','collection.css','monk.js','monk.css','fortune.js','fortune.css','fortune-core.js','barber.js','barber.css','drinks.js','drinks.css','motion.js','motion.css','people.css','responsive.css','scroll.js','scroll.css']);
 export function createServer(){return http.createServer(async(req,res)=>{
  try{
   const url=new URL(req.url,'http://localhost');

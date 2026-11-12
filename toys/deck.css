@@ -1,0 +1,46 @@
+:root{color-scheme:light;--ink:#403e32;--muted:#837c68;--paper:#ece7d7;--card-w:min(36vw,410px);--card-h:min(73vh,580px)}*{box-sizing:border-box}body{margin:0;height:100dvh;overflow:hidden;background:#47645f url('../assets/toy-deck/teal-weave.webp') repeat;background-size:480px 80px;color:var(--ink);font-family:'Noto Serif CJK SC','Songti SC',SimSun,serif}body:before{content:'';position:fixed;inset:0;background:#385b5552;pointer-events:none}button{font:inherit;cursor:pointer;color:inherit;background:none;border:0;padding:12px 10px;letter-spacing:.1em}button:focus-visible,.card:focus-visible{outline:1px solid currentColor;outline-offset:5px}.return{position:fixed;left:clamp(16px,3vw,48px);top:clamp(14px,3vh,32px);z-index:20;color:#f0e9d7;font-size:15px}main{height:100%;display:grid;place-items:center;perspective:1600px}.deck{position:relative;width:var(--card-w);height:var(--card-h);margin-top:18px;perspective:1600px}.card{position:absolute;inset:0;transform:translateX(var(--x)) translateY(var(--y)) rotate(var(--tilt)) scale(var(--scale));transition:transform .65s cubic-bezier(.22,.8,.22,1);isolation:isolate;outline:0;touch-action:pan-y;cursor:pointer}.card[data-active=true]{cursor:grab}.card.dragging{cursor:grabbing}.turn{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(var(--angle,0deg));transition:transform .55s cubic-bezier(.22,.8,.22,1)}.dragging .turn{transition:none}.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--paper) url('../assets/toy-deck/ivory-weave.webp') center/400px auto;border:1px solid #ddd5bf;border-radius:2px;box-shadow:0 8px 20px #122b2520;overflow:hidden}.front{display:flex;flex-direction:column}.back{transform:rotateY(180deg);padding:clamp(26px,3vw,48px);display:flex;flex-direction:column}.overline{font-size:11px;color:var(--muted);letter-spacing:.2em}.number{position:absolute;top:25px;left:28px;font-size:12px;color:var(--muted)}.side-title{position:absolute;right:20px;top:60px;writing-mode:vertical-rl;font-size:20px;letter-spacing:.3em;pointer-events:none;color:#81765d}.card[data-active=true] .side-title{opacity:0}.model{position:absolute;inset:55px 22px 132px;pointer-events:none}.model canvas{width:100%;height:100%;display:block}.caption{margin-top:auto;text-align:center;position:relative;padding:16px 20px 7px;pointer-events:none}.caption h1{font-size:clamp(25px,2.5vw,34px);font-weight:400;letter-spacing:.17em;margin:0 0 8px}.caption p{font-size:12px;letter-spacing:.14em;color:var(--muted);margin:0}.actions{display:flex;justify-content:center;align-items:center;gap:18px;padding:4px 18px 20px;font-size:13px;min-height:55px}.actions button{border-bottom:1px solid #a598773d}.quiet{font-size:11px;color:var(--muted)}.back h2{font-weight:400;font-size:30px;letter-spacing:.15em;margin:28px 0}.back p{font-size:16px;line-height:2.1;margin:0 0 20px}.back .source{font-size:11px;line-height:1.8;color:var(--muted);margin-top:auto}.back .actions{padding-bottom:0}.card:not([data-active=true]) .actions{pointer-events:none;visibility:hidden}.hint{position:fixed;bottom:22px;left:0;width:100%;margin:0;text-align:center;font-size:11px;letter-spacing:.2em;color:#e8e1ccba;pointer-events:none}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(max-width:650px){:root{--card-w:72vw;--card-h:min(72vh,570px)}.deck{margin-top:24px}.model{inset:55px 8px 142px}.back{padding:24px}.back h2{font-size:26px;margin:20px 0}.back p{font-size:14px;line-height:1.9}.actions{gap:10px;font-size:12px}.side-title{right:10px;font-size:17px}.hint{bottom:18px;font-size:10px}.return{font-size:13px}}@media(max-height:570px){:root{--card-h:80vh;--card-w:min(35vw,300px)}.deck{margin-top:28px}.model{inset:40px 20px 110px}.caption h1{font-size:22px}.number{top:15px}.actions{padding-bottom:10px}.back{padding:22px}.back p{font-size:12px;line-height:1.7;margin-bottom:10px}.back h2{font-size:22px;margin:12px 0}.hint{bottom:5px}}@media(prefers-reduced-motion:reduce){.card,.turn{transition-duration:.1s}}
+
+html{width:100%;height:100%;overflow:hidden}body{width:100%;max-width:100vw}main{width:100%;overflow:hidden}
+
+
+.card[data-side='-1'] .side-title{right:auto;left:20px}@media(max-width:650px){.card[data-side='-1'] .side-title{left:10px}}
+
+
+/* Fine silk and a shallow light band, with a deeper lower field. */
+@font-face{font-family:ChongxiSeal;src:url('../assets/fonts/chongxi/chongxi_seal.otf') format('opentype');font-display:swap}
+body{background-color:#31534e;background-image:linear-gradient(180deg,rgba(164,182,169,.87) 0%,rgba(136,161,146,.89) 13%,rgba(83,121,107,.92) 30%,rgba(44,82,74,.94) 65%,rgba(30,62,58,.95) 100%),url('../assets/toy-deck/ivory-weave.webp');background-size:100% 100%,260px auto;background-repeat:no-repeat,repeat}body:before{background:none}
+.card{transition-duration:.4s}.turn{transition-duration:.4s}.face{border-radius:14px;box-shadow:0 8px 18px #102d2528,0 2px 5px #102d2515;transition:box-shadow .4s ease}.card[data-active=true] .face{box-shadow:0 18px 38px #102d253d,0 4px 10px #102d2520}
+.model{inset:48px 14px 66px 68px;pointer-events:auto;cursor:grab;touch-action:none}.model canvas{touch-action:none}.dragging .model{cursor:grabbing}
+.seal-title{position:absolute;left:23px;top:48px;margin:0;writing-mode:vertical-rl;text-orientation:upright;font-family:ChongxiSeal,serif;font-size:32px;font-weight:400;line-height:1.1;letter-spacing:.15em;color:#4e4a3c;pointer-events:none;z-index:2}
+.front .actions{position:absolute;right:12px;bottom:12px;left:auto;padding:0;gap:2px;min-height:44px}.actions button{width:44px;height:44px;padding:8px;border:0;font-size:21px;color:#6d6653}.front .actions button{opacity:.7}.front .actions button:hover,.front .actions button:focus-visible{opacity:1;color:#373d30}.card[data-side='1'] .seal-title{left:auto;right:18px}
+.back .actions{margin-top:auto;padding:0}.back .source{margin-top:auto}.back .overline{display:none}
+@media(max-width:650px){.face{border-radius:12px}.seal-title{left:16px;top:38px;font-size:28px}.model{inset:42px 6px 64px 54px}.card[data-side='1'] .seal-title{right:14px}.front .actions{right:8px;bottom:10px}.actions button{font-size:20px}}
+@media(max-height:570px){.model{inset:30px 12px 52px 50px}.seal-title{top:30px;left:14px;font-size:25px}.front .actions{bottom:4px}.back .source{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.card,.turn,.face{transition-duration:.1s}}
+
+/* === 杂货商卡片本轮调优 === */
+@font-face{font-family:MaShan;src:url('../assets/fonts/MaShanZheng-Regular.ttf') format('truetype');font-display:swap}
+.face{background:var(--paper) url('../assets/toy-deck/silk-weave.webp') center/460px auto repeat}
+.face{box-shadow:0 10px 26px rgba(12,36,29,.22),0 3px 8px rgba(12,36,29,.14)}
+.card[data-active=true] .face{box-shadow:0 28px 60px rgba(12,36,29,.38),0 10px 20px rgba(12,36,29,.20)}
+.turn{transform-origin:center center;transition:transform .62s cubic-bezier(.25,.72,.25,1)}
+.seal-title{font-size:44px;letter-spacing:.18em;color:#464234}
+@media(max-width:650px){.seal-title{font-size:36px}}
+@media(max-height:570px){.seal-title{font-size:30px}}
+.model{inset:42px 18px 74px 64px}
+@media(max-width:650px){.model{inset:40px 10px 70px 56px}}
+@media(max-height:570px){.model{inset:30px 14px 56px 52px}}
+.back{writing-mode:vertical-rl}
+.back h2{font-family:MaShan,"Noto Serif CJK SC",serif;font-size:42px;letter-spacing:.28em;margin:0;color:#3d382a}
+.back p{font-family:MaShan,"Noto Serif CJK SC",serif;font-size:20px;line-height:2.3;letter-spacing:.14em;color:#4a4434}
+.back .source{font-size:11px;color:#8a8171}
+@media(max-width:650px){.back h2{font-size:34px}.back p{font-size:16px;line-height:2}}
+.music-toggle{position:fixed;right:clamp(16px,3vw,40px);top:clamp(14px,3vh,30px);z-index:30;width:46px;height:46px;display:grid;place-items:center;color:#f0e9d7;background:rgba(20,45,40,.3);border:1px solid rgba(240,233,215,.4);border-radius:50%;cursor:pointer;padding:0}
+.music-toggle:hover{background:rgba(20,45,40,.48)}
+.music-toggle.off svg{opacity:.3}
+.music-toggle.off{position:fixed}
+.music-toggle.off::after{content:'';position:absolute;width:26px;height:2px;background:#f0e9d7;transform:rotate(-45deg)}
+/* WebGL canvas can flatten preserve-3d / backface culling — explicitly show one face */
+.face{transition:opacity .35s ease}
+.card[data-face="front"] .back{opacity:0;pointer-events:none}
+.card[data-face="back"] .front{opacity:0;pointer-events:none}

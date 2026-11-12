@@ -8,10 +8,10 @@ const SCROLL_REGIONS = [
 const SCROLL_NPCS = [
   {id:'drinks',label:'香饮子铺 · 一盏汴京凉',x:865/14794,y:590/700},
   {id:'barber',label:'刀镊匠 · 毫末之间',x:2172/14794,y:666/700},
-  {id:'monk',label:'行脚僧',x:.91,y:.64},
+  {id:'monk',label:'行脚僧',x:540/14794,y:475/700},
   {id:'boat',label:'船夫',x:.515,y:.38},
   {id:'baker',label:'炊饼摊主',x:.25427,y:.605},
-  {id:'merchant',label:'杂货商',x:.23,y:.64},
+  {id:'merchant',label:'杂货商',x:6810/14794,y:640/700},
   {id:'fortune',label:'卜卦先生',x:11100/14794,y:280/700}
 ];
 
@@ -92,7 +92,7 @@ function mountScroll(root){
  }
  function schedule(){if(!frame)frame=requestAnimationFrame(()=>update());}
  function seek(c){viewport.scrollLeft=Math.max(0,Math.min(limits(),c*world.scrollWidth-viewport.clientWidth/2));update();}
- for(const r of SCROLL_REGIONS){const b=btn(r.label,()=>seek(r.center));b.dataset.region=r.id;regions.append(b);}
+ for(const r of SCROLL_REGIONS){const b=btn(r.label,()=>{window.SFX?.play('silk-long',{volume:.7});seek(r.center)});b.dataset.region=r.id;regions.append(b);}
  listen(viewport,'scroll',schedule,{passive:true});
  listen(root,'wheel',e=>{
   if(e.ctrlKey||e.metaKey||!limits())return;
@@ -109,7 +109,7 @@ function mountScroll(root){
  });
  listen(viewport,'pointerdown',e=>{
   if(e.pointerType==='touch'||e.target.closest('button')||![0,1].includes(e.button))return;
-  e.preventDefault();drag={id:e.pointerId,x:e.clientX,left:viewport.scrollLeft};viewport.setPointerCapture(e.pointerId);viewport.classList.add('is-dragging');
+  e.preventDefault();drag={id:e.pointerId,x:e.clientX,left:viewport.scrollLeft};viewport.setPointerCapture(e.pointerId);viewport.classList.add('is-dragging');window.SFX?.play('silk-slide',{volume:.75});
  });
  listen(viewport,'pointermove',e=>{if(drag&&e.pointerId===drag.id)viewport.scrollLeft=drag.left+drag.x-e.clientX;});
  function endDrag(){drag=null;viewport.classList.remove('is-dragging');}
@@ -122,7 +122,7 @@ function mountScroll(root){
   seek(Math.max(0,Math.min(1,next)));
  }
  listen(overview,'pointerdown',e=>{
-  if(e.button!==0)return;e.preventDefault();
+  if(e.button!==0)return;e.preventDefault();window.SFX?.play('silk-slide',{volume:.6});
   const rect=overview.getBoundingClientRect(),fraction=(e.clientX-rect.left)/rect.width;
   const visible=viewport.clientWidth/world.scrollWidth;
   miniDrag={offset:Math.abs(fraction-center)<=visible/2?fraction-center:0};
@@ -137,7 +137,7 @@ function mountScroll(root){
   seek(center);update(true);
  });observer.observe(viewport);
  listen(painting,'load',()=>{loading.hidden=true;seek(center);
-  if(window.playScrollEntrance){window.playScrollEntrance=false;
+  if(window.playScrollEntrance){window.playScrollEntrance=false;window.SFX?.play('scroll-open',{volume:.85});
    const story=state.dayStory||{};
  const delivering=!story.ended&&(story.directions||story.credited?.length>=3);
  const target=SCROLL_NPCS.find(p=>p.id==='baker').x;
@@ -148,8 +148,8 @@ function mountScroll(root){
    entrance=requestAnimationFrame(tick);
   }
  });
- listen(painting,'error',()=>{loading.hidden=false;loading.textContent='画卷暂未载入，请重试';loading.append(btn('重新展卷',()=>{loading.textContent='正在展卷…';painting.src=SCROLL_ART.src+'?retry='+Date.now();}));});
- painting.src=SCROLL_ART.src;
+ listen(painting,'error',()=>{loading.hidden=false;loading.textContent='画卷暂未载入，请重试';loading.append(btn('重新展卷',()=>{loading.textContent='正在展卷…';painting.src=(location.protocol==='file:'&&window.FILE_SCROLL_ART?window.FILE_SCROLL_ART:SCROLL_ART.src)+(location.protocol==='file:'?'':'?retry='+Date.now());}));});
+ painting.src=(location.protocol==='file:'&&window.FILE_SCROLL_ART?window.FILE_SCROLL_ART:SCROLL_ART.src);
  seek(center);update(true);
 
  const refractionCleanup=window.mountPaintingRefraction?.(root,viewport,painting)||(()=>{});

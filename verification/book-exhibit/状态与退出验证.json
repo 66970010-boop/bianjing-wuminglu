@@ -1,0 +1,16 @@
+{
+  "unknownBiographiesHidden": true,
+  "emptyRelations": true,
+  "readingDoesNotChangeStory": true,
+  "tailReachable": true,
+  "smokePages": [
+    "scroll",
+    "fortune",
+    "barber",
+    "drinks",
+    "monk",
+    "history",
+    "book"
+  ],
+  "errors": []
+}

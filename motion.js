@@ -3,7 +3,7 @@ function showPaintingRelations(){
  const known=SCROLL_NPCS.filter(p=>state.met[p.id]);
  if(!known.length){toast('先在画卷中认识一位人物，再回望他们的位置。');return;}
  const previous=document.activeElement;
- const overlay=div('painting-projection');overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','画中回望');
+ const overlay=div('painting-projection');overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','画中回望');window.SFX?.play('scroll-open',{volume:.55});
  const heading=div('projection-heading','<div class="eyebrow">人间羁绊 · 画中回望</div><h2>相逢皆在此卷中</h2>');
  const close=btn('返回人间羁绊',dispose,'projection-close');
  const stage=div('projection-stage'),world=div('projection-world');

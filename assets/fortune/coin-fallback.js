@@ -1,0 +1,11 @@
+// Same coin assets and result values when WebGL is unavailable.
+export async function createCoinStage(host,{reduced=false}={}){
+ const images=await Promise.all(['coin-back.png','coin-front.png'].map(name=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=new URL(name,import.meta.url).href;})));
+ const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas unavailable');host.append(canvas);canvas.setAttribute('aria-hidden','true');host.dataset.renderer='canvas2d';
+ let values=[3,2,3],nextValues=values,raf=0,disposed=false,finish=null;
+ function paint(lift=0,turn=0){const w=host.clientWidth,h=host.clientHeight;if(!w||!h||disposed)return;const dpr=Math.min(devicePixelRatio,1.5);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);const size=Math.min(w*.25,h*.35);for(let i=0;i<3;i++){const x=w/2+(i-1)*size*1.22,y=h*.54+(i===1?size*.32:0)-lift;ctx.save();ctx.translate(x,y);ctx.rotate((i-1)*.12);ctx.scale(1,.62*(1-.16*Math.sin(turn)**2));const blend=Math.max(0,Math.min(1,(turn/Math.PI-.4)/.2));ctx.globalAlpha=1-blend;ctx.drawImage(images[values[i]-2],-size/2,-size/2,size,size);ctx.globalAlpha=blend;ctx.drawImage(images[nextValues[i]-2],-size/2,-size/2,size,size);ctx.restore();}}
+ function settle(v){values=[...v];paint();}
+ function animate(v,arrival=false){if(finish)return finish.promise;nextValues=[...v];let resolve;const promise=new Promise(r=>resolve=r);finish=Object.assign(resolve,{promise});let start;const tick=t=>{if(disposed){resolve();return;}start??=t;const p=Math.min(1,(t-start)/(reduced?120:arrival?1000:1700));paint(reduced?0:arrival?(1-p)**2*host.clientHeight*.45:Math.sin(Math.PI*p)*host.clientHeight*.26,reduced||arrival?0:p*Math.PI);if(p<1)raf=requestAnimationFrame(tick);else{values=[...nextValues];paint();finish=null;resolve();}};raf=requestAnimationFrame(tick);return promise;}
+ const observer=new ResizeObserver(()=>paint());observer.observe(host);paint();
+ return {settle,toss:v=>animate(v),arrive:()=>animate([3,2,3],true),dispose(){disposed=true;cancelAnimationFrame(raf);finish?.();observer.disconnect();canvas.remove();}};
+}

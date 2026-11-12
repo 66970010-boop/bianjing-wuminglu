@@ -29,3 +29,11 @@
 .people-group[data-count="5"] .group-person:hover,.people-group[data-count="5"] .group-person:focus-visible{transform:translate(-50%,-50%) scale(1.04);z-index:5}
 @media(max-width:850px){.people-group[data-count="5"]{min-height:440px}.people-group[data-count="5"] .group-person{width:31%;height:40%}}
 @media(max-width:600px){.people-group[data-count="5"]{width:100%;min-height:400px}.people-group[data-count="5"] .group-person{width:31%;height:40%}}
+
+/* Original painting cutout: keep the small source legible without enlarging it to full height. */
+.dialogue .baker[src*="merchant-brush-ink-layer"]{height:auto!important;width:min(32vw,340px)!important;left:12%!important;bottom:18%!important;filter:none!important;object-fit:contain}
+@media(max-width:600px){.dialogue .baker[src*="merchant-brush-ink-layer"]{width:52vw!important;left:6%!important;bottom:48%!important}}
+
+/* Color-only match to the scroll: preserve the existing alpha, texture and geometry. */
+
+

@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "cardAngle": "0deg",
+      "drag": false,
+      "face": "front",
+      "id": "xiaoniren"
+    },
+    {
+      "cardAngle": "0deg",
+      "drag": false,
+      "face": "front",
+      "id": "xiaoniren",
+      "pitch": "0.62",
+      "yaw": "1.0999999999999999"
+    },
+    {
+      "cardAngle": "180deg",
+      "drag": false,
+      "face": "back",
+      "id": "xiaoniren",
+      "pitch": "0.62",
+      "yaw": "1.0999999999999999"
+    },
+    {
+      "cardAngle": "0deg",
+      "drag": false,
+      "face": "front",
+      "id": "xiaofengche"
+    }
+  ],
+  "frames": 78,
+  "duration": 14561
+}

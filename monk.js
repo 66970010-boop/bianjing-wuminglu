@@ -45,8 +45,8 @@ const MONK_STEPS = [
 const MONK_ANSWER=['bridge','market','pair','temple'];
 const MONK_HINTS=['僧人记下今日水涨。近处的浅滩，还适合步行么？','残笺说“穿闹市而行”，不是绕开街市。','两槐相并才是折向处；独柳只有一株。','先看草图的北向标记，再辨山门与仓房。'];
 function monkQuest(){return state.monkQuest||(state.monkQuest={node:'arrival',choices:{},examined:[],route:[],attempts:0,done:false});}
-function monkAdvance(node){const q=monkQuest();q.node=node;delete q.feedback;save();render();}
-function monkComplete(){const q=monkQuest();q.done=true;q.node='complete';state.played.monk=true;state.clues.monkRoute=true;state.history=state.history||[];if(!state.history.includes('monk-route'))state.history.push('monk-route');if(state.met.merchant)state.clues.kindness=true;save();render();}
+function monkAdvance(node){const q=monkQuest();q.node=node;delete q.feedback;save();window.SFX?.play('page-turn',{volume:.65});render();}
+function monkComplete(){const q=monkQuest();q.done=true;q.node='complete';state.played.monk=true;state.clues.monkRoute=true;state.history=state.history||[];if(!state.history.includes('monk-route'))state.history.push('monk-route');if(state.met.merchant)state.clues.kindness=true;save();window.SFX?.play('temple-bell',{volume:.8});render();}
 function monkRestart(){state.monkQuest={node:'arrival',choices:{},examined:[],route:[],attempts:0,done:false};save();render();}
 function monkPortrait(cls=''){let im=document.createElement('img');im.src='assets/monk-layer.webp';im.alt='背负竹箧、持杖行走的行脚僧';im.className=cls;return im;}
 function renderMonk(root){
@@ -78,7 +78,7 @@ function renderMonk(root){
 function renderMonkPuzzle(shell,q){
  let intro=div('monk-puzzle-head','<div><div class="eyebrow">残笺寻路</div><h2>替他辨清眼前这一程</h2><p>先查验三件线索，再在草图上依次选出四处路标。</p></div>');intro.append(div('monk-evidence-count',`线索 ${q.examined.length} / 3`));shell.append(intro);
  let grid=div('monk-puzzle-grid'),aside=div('monk-evidence-list');
- for(const ev of MONK_EVIDENCE){let b=btn('',()=>{q.activeEvidence=ev.id;if(!q.examined.includes(ev.id))q.examined.push(ev.id);delete q.feedback;save();render()},'monk-evidence'+(q.activeEvidence===ev.id?' selected':''));b.innerHTML=`<span class="monk-evidence-mark">${ev.mark}</span><span><strong>${ev.name}</strong><small>${q.examined.includes(ev.id)?'已查验 · '+ev.title:'点击展开查验'}</small></span>`;b.setAttribute('aria-pressed',String(q.activeEvidence===ev.id));aside.append(b);}
+ for(const ev of MONK_EVIDENCE){let b=btn('',()=>{q.activeEvidence=ev.id;if(!q.examined.includes(ev.id)){q.examined.push(ev.id);window.SFX?.play('paper-rustle',{volume:.75})}else window.SFX?.play('ui-tap-soft',{volume:.7});delete q.feedback;save();render()},'monk-evidence'+(q.activeEvidence===ev.id?' selected':''));b.innerHTML=`<span class="monk-evidence-mark">${ev.mark}</span><span><strong>${ev.name}</strong><small>${q.examined.includes(ev.id)?'已查验 · '+ev.title:'点击展开查验'}</small></span>`;b.setAttribute('aria-pressed',String(q.activeEvidence===ev.id));aside.append(b);}
  const ev=MONK_EVIDENCE.find(e=>e.id===q.activeEvidence);
  let detail=div('monk-evidence-detail');if(ev){detail.innerHTML=`<div class="eyebrow">${ev.title}</div><blockquote>${ev.text}</blockquote><p>${ev.detail}</p><div class="monk-evidence-clue">${ev.clue}</div>`;}else detail.innerHTML='<div class="eyebrow">纸上留痕</div><h3>路藏在线索之间</h3><p>三件物品可以随时翻看。残笺、草图和追记，各自保留了一部分道路信息。</p>';
  aside.append(detail);let companion=div('monk-companion');companion.append(monkPortrait(),div('','<strong>行脚僧</strong><p>“字迹缺了，可以相互参照。”</p>'));aside.append(companion);grid.append(aside);
@@ -86,14 +86,14 @@ function renderMonkPuzzle(shell,q){
  let map=div('monk-map');map.innerHTML=monkMapSvg();
  const coords={bridge:[72,37],ford:[72,78],market:[48,37],outside:[48,78],pair:[26,37],willow:[26,78],temple:[15,14],store:[10,60]};
  let step=Math.min(q.route.length,3);if(q.route.length<4)map.dataset.step=String(step);
- MONK_STEPS.forEach((item,i)=>item.options.forEach(([id,label])=>{let chosen=q.route[i]===id;let b=btn(label,()=>{if(i>q.route.length){q.feedback={kind:'info',text:'先从东侧起点辨路：渡水、入市、辨树，再选折向。'};save();render();return;}q.route=q.route.slice(0,i);q.route.push(id);delete q.feedback;save();render()},'monk-map-node'+(chosen?' chosen':'')+(i===q.route.length?' available':''));b.dataset.landmark=id;b.style.left=coords[id][0]+'%';b.style.top=coords[id][1]+'%';b.setAttribute('aria-pressed',String(chosen));b.setAttribute('aria-label',`${item.name}：${label}`);map.append(b)}));
+ MONK_STEPS.forEach((item,i)=>item.options.forEach(([id,label])=>{let chosen=q.route[i]===id;let b=btn(label,()=>{if(i>q.route.length){q.feedback={kind:'info',text:'先从东侧起点辨路：渡水、入市、辨树，再选折向。'};window.SFX?.play('error-soft',{volume:.7});save();render();return;}q.route=q.route.slice(0,i);q.route.push(id);delete q.feedback;save();window.SFX?.play('woodfish',{volume:.75});render()},'monk-map-node'+(chosen?' chosen':'')+(i===q.route.length?' available':''));b.dataset.landmark=id;b.style.left=coords[id][0]+'%';b.style.top=coords[id][1]+'%';b.setAttribute('aria-pressed',String(chosen));b.setAttribute('aria-label',`${item.name}：${label}`);map.append(b)}));
  map.append(div('monk-start','你们在此'));stage.append(map);
  let route=div('monk-route-slots');MONK_STEPS.forEach((s,i)=>{let slot=div('monk-route-slot'+(q.route[i]?' filled':''));slot.innerHTML=`<small>${i+1} · ${s.name}</small><span>${s.options.find(x=>x[0]===q.route[i])?.[1]||'待辨认'}</span>`;route.append(slot)});stage.append(route);
  let feedback=div('monk-puzzle-feedback');feedback.setAttribute('role','status');feedback.textContent=q.feedback?.text||(q.route.length===4?'路线已标出。对照三件线索，再交给僧人。':`接下来：${MONK_STEPS[q.route.length].name}。在草图上点击相应路标。`);if(q.feedback?.kind)feedback.dataset.kind=q.feedback.kind;stage.append(feedback);
- let actions=div('monk-map-actions');let undo=btn('撤回一步',()=>{q.route.pop();delete q.feedback;save();render()},'monk-secondary');undo.disabled=!q.route.length;actions.append(undo,btn('请师父提示',()=>{const i=q.route.findIndex((x,n)=>x!==MONK_ANSWER[n]);const index=i>=0?i:Math.min(q.route.length,3);q.feedback={kind:'info',text:MONK_HINTS[index]};save();render()},'monk-secondary'),btn('将路线指给僧人 →',()=>{
+ let actions=div('monk-map-actions');let undo=btn('撤回一步',()=>{q.route.pop();delete q.feedback;save();window.SFX?.play('ui-tap-soft',{volume:.7});render()},'monk-secondary');undo.disabled=!q.route.length;actions.append(undo,btn('请师父提示',()=>{const i=q.route.findIndex((x,n)=>x!==MONK_ANSWER[n]);const index=i>=0?i:Math.min(q.route.length,3);q.feedback={kind:'info',text:MONK_HINTS[index]};window.SFX?.play('notice',{volume:.6});save();render()},'monk-secondary'),btn('将路线指给僧人 →',()=>{
  if(q.examined.length<3){q.feedback={kind:'info',text:'还有线索未查验。先把残笺、草图与追记都展开看看。'};}
  else if(q.route.length<4){q.feedback={kind:'info',text:'还未指到山门。请依次补齐四处路标。'};}
- else{const wrong=q.route.findIndex((x,i)=>x!==MONK_ANSWER[i]);if(wrong===-1){monkAdvance('found');return;}q.attempts++;q.feedback={kind:'retry',text:'这一路还有一处对不上。'+MONK_HINTS[wrong]+' 点击那一处路标即可改道。'};}
+ else{const wrong=q.route.findIndex((x,i)=>x!==MONK_ANSWER[i]);if(wrong===-1){window.SFX?.play('chime-complete',{volume:.7});monkAdvance('found');return;}q.attempts++;q.feedback={kind:'retry',text:'这一路还有一处对不上。'+MONK_HINTS[wrong]+' 点击那一处路标即可改道。'};window.SFX?.play('error-soft',{volume:.75});}
  save();render();},'monk-primary'));stage.append(actions);grid.append(stage);shell.append(grid);
 }
 function monkMapSvg(){return `<svg viewBox="0 0 900 500" preserveAspectRatio="none" aria-hidden="true">

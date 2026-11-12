@@ -34,7 +34,7 @@ function mountFortune(root){
  function updateFooter(){previous.hidden=step===0;next.hidden=step===2||(step===1&&!session);next.textContent=step===0?'向下滚动':step===1?(session?'继续':'写下所问'):step===2?(session?.revealed===6?'观卦':'继续'):step===3?'向下滚动':readingIndex<readings().length-1?'继续听':'返回画卷';}
  async function ensureCoins(){
   if(coinStage)return coinStage;
-  if(!coinLoading)coinLoading=import('./assets/fortune/coin-stage.js').then(m=>m.createCoinStage(coinHost,{reduced})).then(stage=>{if(disposed){stage.dispose();return null;}coinStage=stage;return stage;}).catch(()=>{coinLoading=null;if(!disposed)say('铜钱未能载入，请重试。');return null;});
+  if(!coinLoading)coinLoading=Promise.resolve().then(async()=>{try{return await window.FortuneAssets.createCoinStage(coinHost,{reduced});}catch(error){console.error('三维铜钱初始化失败',error);coinHost.replaceChildren();return window.FortuneAssets.createFallback(coinHost,{reduced});}}).then(stage=>{if(disposed){stage.dispose();return null;}coinStage=stage;return stage;}).catch(error=>{console.error('铜钱初始化失败',error);coinLoading=null;if(!disposed)say('铜钱未能载入，请重试。');return null;});
   return coinLoading;
  }
  function chart(h,moving=[]){
@@ -100,7 +100,7 @@ function mountFortune(root){
   const preparedStage=ensureCoins();
   (async()=>{await delay(reduced?0:750);if(disposed||epoch!==castEpoch)return;
    await delay(reduced?80:1150);if(disposed||epoch!==castEpoch)return;
-   const fx=await import('./assets/fortune/text-dissolve.js');await fx.dissolveText(content.querySelector('h1'),shell,reduced);if(disposed||epoch!==castEpoch)return;
+   const fx=window.FortuneAssets;await fx.dissolveText(content.querySelector('h1'),shell,reduced);if(disposed||epoch!==castEpoch)return;
    root.dataset.castPhase='arrival';const stage=await preparedStage;if(disposed||epoch!==castEpoch)return;
    if(stage)await stage.arrive();if(disposed||epoch!==castEpoch)return;castEntered=true;busy=false;previous.disabled=false;root.dataset.castPhase='ready';updateCast();
   })();
@@ -116,15 +116,15 @@ function mountFortune(root){
  function progressLabel(){content.querySelector('.fortune-progress')?.setAttribute('aria-label','已成 '+session.revealed+' 爻，共六爻');}
  function describeCoins(values){coinHost.setAttribute('aria-label','三枚铜钱：'+values.map(v=>v===3?'正面，记三':'背面，记二').join('；'));coinHost.dataset.faces=values.join(',');}
  async function toss(){
-  if(busy||transitioning)return;if(session.revealed>=6){change(3);return;}busy=true;const epoch=castEpoch,button=content.querySelector('.fortune-toss');button.disabled=true;previous.disabled=true;button.classList.remove('is-clicked');void button.offsetWidth;button.classList.add('is-clicked');updateCast(true);
+  if(busy||transitioning)return;if(session.revealed>=6){change(3);return;}busy=true;const epoch=castEpoch,button=content.querySelector('.fortune-toss');button.disabled=true;previous.disabled=true;button.classList.remove('is-clicked');void button.offsetWidth;button.classList.add('is-clicked');updateCast(true);window.SFX?.play('coin-rattle',{volume:.75});
   const stage=await ensureCoins();if(disposed||epoch!==castEpoch)return;if(!stage){busy=false;button.disabled=false;previous.disabled=false;return;}
-  const values=session.coins[session.revealed];await stage.toss(values);if(disposed||epoch!==castEpoch)return;describeCoins(values);
+  const values=session.coins[session.revealed];await stage.toss(values);if(disposed||epoch!==castEpoch)return;describeCoins(values);window.SFX?.play('coin-drop',{volume:.8});
   session.revealed++;checkpoint();updateCast();const row=liveHex.querySelector('[data-line="'+(session.revealed-1)+'"]');row.classList.add('is-drawing');await delay(reduced?60:950);if(disposed||epoch!==castEpoch)return;row.classList.remove('is-drawing');
-  if(session.revealed===6){root.dataset.castPhase='complete';liveHex.classList.add('is-complete');await delay(reduced?100:600);if(disposed||epoch!==castEpoch)return;liveHex.classList.add('is-centering');root.dataset.castPhase='centering';await delay(reduced?150:1500);if(disposed||epoch!==castEpoch)return;busy=false;previous.disabled=false;change(3);}
+  if(session.revealed===6){root.dataset.castPhase='complete';liveHex.classList.add('is-complete');window.SFX?.play('gong-soft',{volume:.85});await delay(reduced?100:600);if(disposed||epoch!==castEpoch)return;liveHex.classList.add('is-centering');root.dataset.castPhase='centering';await delay(reduced?150:1500);if(disposed||epoch!==castEpoch)return;busy=false;previous.disabled=false;change(3);}
   else{busy=false;button.disabled=false;previous.disabled=false;}
  }
- function observation(){
-  const r=result();let finished=liveHex;if(finished){finished.className='fortune-cast-hex is-centered';liveHex=null;shell.append(finished);}if(!finished){finished=chart(r.base,r.moving);finished.className='fortune-cast-hex is-centered';shell.append(finished);}content.append(heading(r.base.name,'fortune-result-name'),text('p','上'+r.base.upper+' · 下'+r.base.lower,'fortune-trigrams'));
+  function observation(){
+  const r=result();let finished=liveHex;if(finished){finished.className='fortune-cast-hex is-centered';liveHex=null;shell.append(finished);}if(!finished){finished=chart(r.base,r.moving);finished.className='fortune-cast-hex is-centered';shell.append(finished);}content.append(heading(r.base.name,'fortune-result-name'),text('p','上'+r.base.upper+' · 下'+r.base.lower,'fortune-trigrams'));window.SFX?.play('chime-gentle',{volume:.6});
   content.append(btn(readings().length?'听先生解卦':'请先生解卦',()=>move(1),'fortune-primary'));
   const tools=div('fortune-result-tools');tools.append(btn('细看此卦',openDetails,'fortune-secondary'),btn('另问一事',reset,'fortune-secondary'));content.append(tools);
  }
@@ -132,7 +132,7 @@ function mountFortune(root){
   const chunks=readings();content.append(text('p',chunks[readingIndex]||'卦已成。','fortune-reading'),text('span',(readingIndex+1)+' / '+chunks.length,'fortune-reading-count'));
   const tools=div('fortune-result-tools');tools.append(btn('细看问答',openDetails,'fortune-secondary'));if(readingIndex===chunks.length-1)tools.append(btn('记下此问',remember,'fortune-primary'));content.append(tools);
  }
- function remember(){state.played.fortune=true;state.clues.fortuneVisit=true;save();say('此番问答已记下。');}
+ function remember(){state.played.fortune=true;state.clues.fortuneVisit=true;save();window.SFX?.play('seal-stamp',{volume:.8});say('此番问答已记下。');}
  function reset(){if(busy||transitioning)return;castEntered=false;session=null;checkpoint();readingIndex=0;change(1);}
  function openDetails(){
   const r=result(),dialog=document.createElement('dialog');dialog.className='fortune-details';dialog.setAttribute('aria-label','卦象与问答');

@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "drag": false,
+      "face": "front",
+      "id": "xiaoniren"
+    },
+    {
+      "drag": false,
+      "face": "back",
+      "id": "xiaoniren"
+    },
+    {
+      "drag": false,
+      "face": "front",
+      "id": "xiaoniren"
+    },
+    {
+      "drag": false,
+      "face": "front",
+      "id": "xiaofengche"
+    }
+  ],
+  "frames": 77,
+  "duration": 19914
+}

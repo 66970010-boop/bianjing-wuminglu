@@ -1,0 +1,300 @@
+{
+  "generated": "2026-11-13",
+  "sampleRate": 44100,
+  "sounds": [
+    {
+      "name": "ui-tap",
+      "file": "ui-tap.wav",
+      "duration": 0.14,
+      "bytes": 12394,
+      "description": "按钮、印章等通用轻点"
+    },
+    {
+      "name": "ui-tap-soft",
+      "file": "ui-tap-soft.wav",
+      "duration": 0.1,
+      "bytes": 8864,
+      "description": "次级按钮轻点"
+    },
+    {
+      "name": "page-turn",
+      "file": "page-turn.wav",
+      "duration": 0.55,
+      "bytes": 48556,
+      "description": "翻页、场景推进"
+    },
+    {
+      "name": "paper-rustle",
+      "file": "paper-rustle.wav",
+      "duration": 0.42,
+      "bytes": 37088,
+      "description": "纸张轻响、线索查验"
+    },
+    {
+      "name": "paper-unfold",
+      "file": "paper-unfold.wav",
+      "duration": 0.85,
+      "bytes": 75014,
+      "description": "展开家书、信纸"
+    },
+    {
+      "name": "seal-stamp",
+      "file": "seal-stamp.wav",
+      "duration": 0.5,
+      "bytes": 44144,
+      "description": "印章落定、记录入册"
+    },
+    {
+      "name": "silk-slide",
+      "file": "silk-slide.wav",
+      "duration": 0.75,
+      "bytes": 66194,
+      "description": "画卷轻滑、拖拽"
+    },
+    {
+      "name": "silk-long",
+      "file": "silk-long.wav",
+      "duration": 1.3,
+      "bytes": 114704,
+      "description": "展卷、长距离滑动"
+    },
+    {
+      "name": "scroll-open",
+      "file": "scroll-open.wav",
+      "duration": 2.4,
+      "bytes": 211724,
+      "description": "展卷开场"
+    },
+    {
+      "name": "brush-stroke",
+      "file": "brush-stroke.wav",
+      "duration": 0.5,
+      "bytes": 44144,
+      "description": "落笔、书写"
+    },
+    {
+      "name": "chime-gentle",
+      "file": "chime-gentle.wav",
+      "duration": 1.5,
+      "bytes": 132344,
+      "description": "轻柔提示、页面就绪"
+    },
+    {
+      "name": "chime-complete",
+      "file": "chime-complete.wav",
+      "duration": 2,
+      "bytes": 176444,
+      "description": "工序完成、获得线索"
+    },
+    {
+      "name": "gong-soft",
+      "file": "gong-soft.wav",
+      "duration": 2.6,
+      "bytes": 229364,
+      "description": "卜卦卦成弱磬"
+    },
+    {
+      "name": "temple-bell",
+      "file": "temple-bell.wav",
+      "duration": 3.4,
+      "bytes": 299924,
+      "description": "行脚僧完成、寺院钟声"
+    },
+    {
+      "name": "woodfish",
+      "file": "woodfish.wav",
+      "duration": 0.35,
+      "bytes": 30914,
+      "description": "木鱼、木牌点击"
+    },
+    {
+      "name": "water-pour",
+      "file": "water-pour.wav",
+      "duration": 1.15,
+      "bytes": 101474,
+      "description": "浇水、倒水"
+    },
+    {
+      "name": "water-drip",
+      "file": "water-drip.wav",
+      "duration": 0.7,
+      "bytes": 61784,
+      "description": "水滴"
+    },
+    {
+      "name": "comb",
+      "file": "comb.wav",
+      "duration": 0.44,
+      "bytes": 38852,
+      "description": "梳发"
+    },
+    {
+      "name": "tweezers",
+      "file": "tweezers.wav",
+      "duration": 0.4,
+      "bytes": 35324,
+      "description": "镊发"
+    },
+    {
+      "name": "scissors",
+      "file": "scissors.wav",
+      "duration": 0.42,
+      "bytes": 37088,
+      "description": "剪须"
+    },
+    {
+      "name": "razor",
+      "file": "razor.wav",
+      "duration": 0.55,
+      "bytes": 48556,
+      "description": "修面"
+    },
+    {
+      "name": "clay-clink",
+      "file": "clay-clink.wav",
+      "duration": 0.4,
+      "bytes": 35324,
+      "description": "陶盏轻碰"
+    },
+    {
+      "name": "coin-rattle",
+      "file": "coin-rattle.wav",
+      "duration": 1,
+      "bytes": 88244,
+      "description": "铜钱摇动"
+    },
+    {
+      "name": "coin-drop",
+      "file": "coin-drop.wav",
+      "duration": 0.7,
+      "bytes": 61784,
+      "description": "铜钱落定"
+    },
+    {
+      "name": "coin-jingle",
+      "file": "coin-jingle.wav",
+      "duration": 0.8,
+      "bytes": 70604,
+      "description": "进账铜钱"
+    },
+    {
+      "name": "ice-clink",
+      "file": "ice-clink.wav",
+      "duration": 0.55,
+      "bytes": 48556,
+      "description": "冰块入盏"
+    },
+    {
+      "name": "stir",
+      "file": "stir.wav",
+      "duration": 0.95,
+      "bytes": 83834,
+      "description": "搅匀饮子"
+    },
+    {
+      "name": "honey-drop",
+      "file": "honey-drop.wav",
+      "duration": 0.6,
+      "bytes": 52964,
+      "description": "添蜜"
+    },
+    {
+      "name": "pour-out",
+      "file": "pour-out.wav",
+      "duration": 0.9,
+      "bytes": 79424,
+      "description": "倒掉重做"
+    },
+    {
+      "name": "drinks-ok",
+      "file": "drinks-ok.wav",
+      "duration": 0.4,
+      "bytes": 35324,
+      "description": "调饮操作正确"
+    },
+    {
+      "name": "drinks-error",
+      "file": "drinks-error.wav",
+      "duration": 0.45,
+      "bytes": 39734,
+      "description": "操作提示、不可用"
+    },
+    {
+      "name": "serve-success",
+      "file": "serve-success.wav",
+      "duration": 1.2,
+      "bytes": 105884,
+      "description": "交付成功"
+    },
+    {
+      "name": "customer-arrive",
+      "file": "customer-arrive.wav",
+      "duration": 0.8,
+      "bytes": 70604,
+      "description": "客人到来"
+    },
+    {
+      "name": "pounding",
+      "file": "pounding.wav",
+      "duration": 1.2,
+      "bytes": 105884,
+      "description": "捣果"
+    },
+    {
+      "name": "filtering",
+      "file": "filtering.wav",
+      "duration": 1.3,
+      "bytes": 114704,
+      "description": "过滤"
+    },
+    {
+      "name": "simmering",
+      "file": "simmering.wav",
+      "duration": 2.3,
+      "bytes": 202904,
+      "description": "熬煮"
+    },
+    {
+      "name": "wind-whoosh",
+      "file": "wind-whoosh.wav",
+      "duration": 1.2,
+      "bytes": 105884,
+      "description": "风车、风声"
+    },
+    {
+      "name": "drum",
+      "file": "drum.wav",
+      "duration": 0.6,
+      "bytes": 52964,
+      "description": "拨浪鼓"
+    },
+    {
+      "name": "toy-giggle",
+      "file": "toy-giggle.wav",
+      "duration": 0.9,
+      "bytes": 79424,
+      "description": "泥塑童子笑声"
+    },
+    {
+      "name": "error-soft",
+      "file": "error-soft.wav",
+      "duration": 0.45,
+      "bytes": 39734,
+      "description": "错误提示弱音"
+    },
+    {
+      "name": "notice",
+      "file": "notice.wav",
+      "duration": 0.8,
+      "bytes": 70604,
+      "description": "通知、提示"
+    },
+    {
+      "name": "cloth",
+      "file": "cloth.wav",
+      "duration": 0.4,
+      "bytes": 35324,
+      "description": "布巾、衣料"
+    }
+  ]
+}
