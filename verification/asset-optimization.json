@@ -1,0 +1,307 @@
+{
+  "images": 60,
+  "before": 80619379,
+  "after": 12960168,
+  "files": [
+    {
+      "source": "assets/animations/person-0.png",
+      "before": 351225,
+      "after": 83898
+    },
+    {
+      "source": "assets/animations/person-1.png",
+      "before": 337177,
+      "after": 82158
+    },
+    {
+      "source": "assets/animations/person-2.png",
+      "before": 345921,
+      "after": 75450
+    },
+    {
+      "source": "assets/animations/person-3.png",
+      "before": 332959,
+      "after": 69922
+    },
+    {
+      "source": "assets/animations/person-4.png",
+      "before": 189683,
+      "after": 47120
+    },
+    {
+      "source": "assets/animations/preparation-sheet.png",
+      "before": 2141214,
+      "after": 288262
+    },
+    {
+      "source": "assets/animations/prop-0.png",
+      "before": 194198,
+      "after": 39134
+    },
+    {
+      "source": "assets/animations/prop-1.png",
+      "before": 194220,
+      "after": 40698
+    },
+    {
+      "source": "assets/animations/prop-2.png",
+      "before": 193941,
+      "after": 40276
+    },
+    {
+      "source": "assets/animations/prop-3.png",
+      "before": 177777,
+      "after": 39050
+    },
+    {
+      "source": "assets/animations/prop-4.png",
+      "before": 169379,
+      "after": 39920
+    },
+    {
+      "source": "assets/animations/prop-5.png",
+      "before": 213328,
+      "after": 48200
+    },
+    {
+      "source": "assets/animations/prop-6.png",
+      "before": 198345,
+      "after": 61174
+    },
+    {
+      "source": "assets/animations/prop-7.png",
+      "before": 186396,
+      "after": 47824
+    },
+    {
+      "source": "assets/animations/tool-0.png",
+      "before": 428817,
+      "after": 58368
+    },
+    {
+      "source": "assets/animations/tool-1.png",
+      "before": 453169,
+      "after": 71768
+    },
+    {
+      "source": "assets/animations/tool-2.png",
+      "before": 353952,
+      "after": 47492
+    },
+    {
+      "source": "assets/animations/tool-3.png",
+      "before": 465944,
+      "after": 66140
+    },
+    {
+      "source": "assets/animations/tool-4.png",
+      "before": 357754,
+      "after": 43066
+    },
+    {
+      "source": "assets/animations/tool-5.png",
+      "before": 352584,
+      "after": 41260
+    },
+    {
+      "source": "assets/baker-layer.png",
+      "before": 2484565,
+      "after": 353582
+    },
+    {
+      "source": "assets/barber-comb-idle.png",
+      "before": 2101287,
+      "after": 429834
+    },
+    {
+      "source": "assets/barber-customer-base.png",
+      "before": 1791165,
+      "after": 206556
+    },
+    {
+      "source": "assets/barber-customer-closed.png",
+      "before": 1514980,
+      "after": 130428
+    },
+    {
+      "source": "assets/barber-customer-happy.png",
+      "before": 1940409,
+      "after": 186018
+    },
+    {
+      "source": "assets/barber-ladle-idle.png",
+      "before": 1472511,
+      "after": 123360
+    },
+    {
+      "source": "assets/barber-ladle-pour.png",
+      "before": 1424733,
+      "after": 110828
+    },
+    {
+      "source": "assets/barber-layer.png",
+      "before": 2387927,
+      "after": 293288
+    },
+    {
+      "source": "assets/barber-mirror.png",
+      "before": 420399,
+      "after": 56472
+    },
+    {
+      "source": "assets/barber-razor.png",
+      "before": 281541,
+      "after": 29158
+    },
+    {
+      "source": "assets/barber-scissors-closed.png",
+      "before": 1512020,
+      "after": 130890
+    },
+    {
+      "source": "assets/barber-scissors-idle.png",
+      "before": 1650299,
+      "after": 145540
+    },
+    {
+      "source": "assets/barber-tweezers-closed.png",
+      "before": 1387707,
+      "after": 108908
+    },
+    {
+      "source": "assets/barber-tweezers-idle.png",
+      "before": 1363240,
+      "after": 101798
+    },
+    {
+      "source": "assets/boatman-layer.png",
+      "before": 2226831,
+      "after": 288610
+    },
+    {
+      "source": "assets/cinnabar-fabric.png",
+      "before": 4218462,
+      "after": 679120
+    },
+    {
+      "source": "assets/cursors/scroll-magnifier-72.png",
+      "before": 4683,
+      "after": 3192
+    },
+    {
+      "source": "assets/cursors/scroll-magnifier-original.png",
+      "before": 588946,
+      "after": 137784
+    },
+    {
+      "source": "assets/drink-keeper-portrait.png",
+      "before": 397295,
+      "after": 84116
+    },
+    {
+      "source": "assets/drink-people.png",
+      "before": 1717789,
+      "after": 356344
+    },
+    {
+      "source": "assets/drink-props.png",
+      "before": 1665270,
+      "after": 349176
+    },
+    {
+      "source": "assets/drink-scene.png",
+      "before": 2896086,
+      "after": 309072
+    },
+    {
+      "source": "assets/fortune/coin-back.png",
+      "before": 2273220,
+      "after": 325382
+    },
+    {
+      "source": "assets/fortune/coin-front.png",
+      "before": 2735705,
+      "after": 454272
+    },
+    {
+      "source": "assets/fortune-layer-before-20261112.png",
+      "before": 1789601,
+      "after": 144138
+    },
+    {
+      "source": "assets/fortune-layer.png",
+      "before": 1084223,
+      "after": 169038
+    },
+    {
+      "source": "assets/merchant-layer.png",
+      "before": 2818753,
+      "after": 417954
+    },
+    {
+      "source": "assets/monk-layer.png",
+      "before": 1532054,
+      "after": 275118
+    },
+    {
+      "source": "assets/river-layer.png",
+      "before": 3873236,
+      "after": 635042
+    },
+    {
+      "source": "assets/scroll-envelope-v5.png",
+      "before": 2633817,
+      "after": 288800
+    },
+    {
+      "source": "assets/seals/baker-v2.png",
+      "before": 1291276,
+      "after": 358524
+    },
+    {
+      "source": "assets/seals/barber.png",
+      "before": 1153082,
+      "after": 355666
+    },
+    {
+      "source": "assets/seals/boat-v2.png",
+      "before": 1217120,
+      "after": 381016
+    },
+    {
+      "source": "assets/seals/drinks-v2.png",
+      "before": 1348279,
+      "after": 413072
+    },
+    {
+      "source": "assets/seals/fortune.png",
+      "before": 1369501,
+      "after": 379570
+    },
+    {
+      "source": "assets/seals/merchant.png",
+      "before": 1394361,
+      "after": 406350
+    },
+    {
+      "source": "assets/seals/monk.png",
+      "before": 1446302,
+      "after": 501456
+    },
+    {
+      "source": "assets/stall-layer.png",
+      "before": 3668043,
+      "after": 574360
+    },
+    {
+      "source": "assets/toy-layer.png",
+      "before": 2422792,
+      "after": 376834
+    },
+    {
+      "source": "assets/home-hongqiao.webp",
+      "before": 3481886,
+      "after": 558322
+    }
+  ]
+}

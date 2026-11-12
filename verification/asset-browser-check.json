@@ -1,0 +1,128 @@
+{
+  "failures": [],
+  "errors": [],
+  "broken": [],
+  "home": [
+    {
+      "url": "http://127.0.0.1:3015/scroll.css?v=webp-20261112",
+      "bytes": 5311
+    },
+    {
+      "url": "http://127.0.0.1:3015/people.css?v=webp-20261112",
+      "bytes": 8807
+    },
+    {
+      "url": "http://127.0.0.1:3015/responsive.css?v=webp-20261112",
+      "bytes": 5166
+    },
+    {
+      "url": "http://127.0.0.1:3015/motion.css?v=webp-20261112",
+      "bytes": 1945
+    },
+    {
+      "url": "http://127.0.0.1:3015/barber.css?v=webp-20261112",
+      "bytes": 4033
+    },
+    {
+      "url": "http://127.0.0.1:3015/drinks.css?v=webp-20261112",
+      "bytes": 34903
+    },
+    {
+      "url": "http://127.0.0.1:3015/fortune.css?v=webp-20261112",
+      "bytes": 14967
+    },
+    {
+      "url": "http://127.0.0.1:3015/fortune-core.js?v=webp-20261112",
+      "bytes": 2408
+    },
+    {
+      "url": "http://127.0.0.1:3015/data/hexagrams.js?v=webp-20261112",
+      "bytes": 36351
+    },
+    {
+      "url": "http://127.0.0.1:3015/fortune.js?v=webp-20261112",
+      "bytes": 20323
+    },
+    {
+      "url": "http://127.0.0.1:3015/drinks.js?v=webp-20261112",
+      "bytes": 28113
+    },
+    {
+      "url": "http://127.0.0.1:3015/barber.js?v=webp-20261112",
+      "bytes": 25372
+    },
+    {
+      "url": "http://127.0.0.1:3015/monk.css?v=webp-20261112",
+      "bytes": 11537
+    },
+    {
+      "url": "http://127.0.0.1:3015/collection.css?v=webp-20261112",
+      "bytes": 2017
+    },
+    {
+      "url": "http://127.0.0.1:3015/monk.js?v=webp-20261112",
+      "bytes": 21070
+    },
+    {
+      "url": "http://127.0.0.1:3015/collection.js?v=webp-20261112",
+      "bytes": 1037
+    },
+    {
+      "url": "http://127.0.0.1:3015/scroll.js?v=webp-20261112",
+      "bytes": 12944
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/effects/painting-refraction.js?v=webp-20261112",
+      "bytes": 16268
+    },
+    {
+      "url": "http://127.0.0.1:3015/motion.js?v=webp-20261112",
+      "bytes": 3870
+    },
+    {
+      "url": "http://127.0.0.1:3015/story.css?v=webp-20261112",
+      "bytes": 1585
+    },
+    {
+      "url": "http://127.0.0.1:3015/ui-overrides.css?v=webp-20261112",
+      "bytes": 42872
+    },
+    {
+      "url": "http://127.0.0.1:3015/ui-fixes.js?v=webp-20261112",
+      "bytes": 4628
+    },
+    {
+      "url": "http://127.0.0.1:3015/intro-guide.js?v=webp-20261112",
+      "bytes": 3959
+    },
+    {
+      "url": "http://127.0.0.1:3015/story.js?v=webp-20261112",
+      "bytes": 8907
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/audio/controls.css?v=webp-20261112",
+      "bytes": 1144
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/interaction-guides.css?v=webp-20261112",
+      "bytes": 1422
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/audio/controls.js?v=webp-20261112",
+      "bytes": 4413
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/boatman-layer.webp",
+      "bytes": 288610
+    },
+    {
+      "url": "http://127.0.0.1:3015/assets/home-hongqiao-cover.webp",
+      "bytes": 558322
+    },
+    {
+      "url": "http://127.0.0.1:3015/favicon.ico",
+      "bytes": 21
+    }
+  ],
+  "homeBytes": 1172325
+}

@@ -48,7 +48,7 @@ function monkQuest(){return state.monkQuest||(state.monkQuest={node:'arrival',ch
 function monkAdvance(node){const q=monkQuest();q.node=node;delete q.feedback;save();render();}
 function monkComplete(){const q=monkQuest();q.done=true;q.node='complete';state.played.monk=true;state.clues.monkRoute=true;state.history=state.history||[];if(!state.history.includes('monk-route'))state.history.push('monk-route');if(state.met.merchant)state.clues.kindness=true;save();render();}
 function monkRestart(){state.monkQuest={node:'arrival',choices:{},examined:[],route:[],attempts:0,done:false};save();render();}
-function monkPortrait(cls=''){let im=document.createElement('img');im.src='assets/monk-layer.png';im.alt='背负竹箧、持杖行走的行脚僧';im.className=cls;return im;}
+function monkPortrait(cls=''){let im=document.createElement('img');im.src='assets/monk-layer.webp';im.alt='背负竹箧、持杖行走的行脚僧';im.className=cls;return im;}
 function renderMonk(root){
  const q=monkQuest();root.classList.add('monk-quest');
  const current=q.node==='puzzle'?3:q.node==='complete'?4:(MONK_STORY[q.node]?.act||0);

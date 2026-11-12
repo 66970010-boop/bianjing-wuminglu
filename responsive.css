@@ -42,7 +42,7 @@
  .people-overview{--circle-size:min(100%,460px);grid-template-columns:minmax(0,40%) minmax(0,60%);align-items:center;min-height:0;gap:0;padding-top:24px}
  .people-overview:before{display:none}
  .people-index{position:relative;isolation:isolate;width:var(--circle-size);aspect-ratio:1;min-height:0;justify-self:start;align-self:center;display:flex;flex-direction:column;justify-content:center;padding:12% 13%;box-sizing:border-box}
- .people-index:before{content:'';position:absolute;inset:0;z-index:-1;border-radius:50%;background:#973e2c url('assets/cinnabar-fabric.png') center/cover}
+ .people-index:before{content:'';position:absolute;inset:0;z-index:-1;border-radius:50%;background:#973e2c url('assets/cinnabar-fabric.webp') center/cover}
  .people-index .eyebrow{font-size:clamp(9px,1vw,12px);letter-spacing:.14em;white-space:nowrap}
  .people-index h2{font-size:clamp(26px,3vw,42px);margin:12px 0}
  .people-names{width:100%;max-width:none;column-gap:16px}

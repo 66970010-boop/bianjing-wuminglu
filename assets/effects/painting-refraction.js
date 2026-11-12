@@ -29,7 +29,7 @@ window.mountPaintingRefraction=function(root,viewport,painting){
   }lensCtx.putImageData(out,0,0);
  }catch(e){lensCtx.clearRect(0,0,lens.width,lens.height);}}
  function scheduleLens(){if(!pointer.hidden&&!lensFrame)lensFrame=requestAnimationFrame(renderLens);}
- frame.addEventListener('load',()=>{pointerReady=true;pointerMode();if(lastPointerInput)updatePointer(lastPointerInput);},{signal});frame.addEventListener('error',()=>{pointerReady=false;pointerMode();hidePointer();},{signal});document.body.append(pointer);frame.src='assets/cursors/scroll-magnifier-72.png';
+ frame.addEventListener('load',()=>{pointerReady=true;pointerMode();if(lastPointerInput)updatePointer(lastPointerInput);},{signal});frame.addEventListener('error',()=>{pointerReady=false;pointerMode();hidePointer();},{signal});document.body.append(pointer);frame.src='assets/cursors/scroll-magnifier-72.webp';
  function updatePointer(e){lastPointerInput=e;const active=pointerReady&&fine.matches&&e.pointerType!=='touch'&&!e.buttons&&viewport.contains(e.target)&&(!e.target.closest('button,a,[role=button],.story-guide')||Boolean(e.target.closest('.npc-seal')));
   if(!active){hidePointer();return;}pointer.hidden=false;mouse={x:e.clientX,y:e.clientY};pointer.style.transform='translate3d('+(e.clientX-HOTSPOT)+'px,'+(e.clientY-HOTSPOT)+'px,0)';scheduleLens();}
  document.addEventListener('pointermove',updatePointer,{signal,passive:true});document.addEventListener('pointerup',updatePointer,{signal,passive:true});document.addEventListener('visibilitychange',hidePointer,{signal});

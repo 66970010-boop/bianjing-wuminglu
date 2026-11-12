@@ -30,8 +30,8 @@
 .scroll-range{width:100%;margin:0;height:18px;appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize;touch-action:none;accent-color:#8e4b34}
 .scroll-range::-webkit-slider-runnable-track{height:1px;background:#a99c7c}
 .scroll-range::-moz-range-track{height:1px;background:#a99c7c}
-.scroll-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:44px;height:28px;margin-top:-13.5px;border:0;border-radius:0;background:url('assets/scroll-envelope-v5.png') center/contain no-repeat;box-shadow:none}
-.scroll-range::-moz-range-thumb{width:44px;height:28px;border:0;border-radius:0;background:url('assets/scroll-envelope-v5.png') center/contain no-repeat;box-shadow:none}
+.scroll-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:44px;height:28px;margin-top:-13.5px;border:0;border-radius:0;background:url('assets/scroll-envelope-v5.webp') center/contain no-repeat;box-shadow:none}
+.scroll-range::-moz-range-thumb{width:44px;height:28px;border:0;border-radius:0;background:url('assets/scroll-envelope-v5.webp') center/contain no-repeat;box-shadow:none}
 .scroll-range:focus-visible{outline:1px solid #8f7150;outline-offset:3px}
 .scroll-loading{position:absolute;inset:var(--nav-height) 0 var(--roll-height);z-index:9;display:grid;place-content:center;text-align:center;gap:15px;background:#191d1b;color:#d6c9a3;font-size:16px;letter-spacing:.16em}
 .scroll-loading[hidden]{display:none}

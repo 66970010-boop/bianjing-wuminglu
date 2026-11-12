@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three-0.170.0.js';
 // Coin body and square hole are geometry; the generated images supply face detail.
 export async function createCoinStage(host,{reduced=false}={}){
  const loader=new THREE.TextureLoader();
- const maps=await Promise.all(['coin-front.png','coin-back.png'].map(name=>loader.loadAsync(new URL(name,import.meta.url).href)));
+ const maps=await Promise.all(['coin-front.webp','coin-back.webp'].map(name=>loader.loadAsync(new URL(name,import.meta.url).href)));
  maps.forEach(t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;});
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:false});renderer.setClearColor(0x000000,1);renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputColorSpace=THREE.SRGBColorSpace;host.append(renderer.domElement);renderer.domElement.setAttribute('aria-hidden','true');
  const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-5,5,2.8,-2.8,.1,30);camera.position.set(0,9,12);camera.lookAt(0,0,0);

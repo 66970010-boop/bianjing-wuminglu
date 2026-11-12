@@ -304,7 +304,7 @@
 }
 
 /* 首页取张择端全卷虹桥段；暗层独立于原图，保留原始素材。 */
-.home.hero:before{background:linear-gradient(90deg,rgba(22,19,14,.26),rgba(22,19,14,.13)),url('assets/home-hongqiao.webp') 50% 46%/cover no-repeat;filter:saturate(.72) brightness(.86);}
+.home.hero:before{background:linear-gradient(90deg,rgba(22,19,14,.26),rgba(22,19,14,.13)),url('assets/home-hongqiao-cover.webp') 50% 46%/cover no-repeat;filter:saturate(.72) brightness(.86);}
 .home.hero:after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 44%,rgba(15,20,18,.63) 0%,rgba(15,20,18,.40) 32%,rgba(15,20,18,.12) 72%),linear-gradient(0deg,rgba(12,17,15,.38),transparent 38%);}
 .home .hero-people{display:none;}
 .home .hero-content{position:relative;z-index:3;color:#fff3d6;text-shadow:0 2px 16px #15130ddd;}
@@ -380,14 +380,12 @@
 .region-underline{position:absolute;left:0;bottom:0;height:1px;background:#984d38;pointer-events:none;transition:transform .3s ease,width .3s ease;}
 @media(prefers-reduced-motion:reduce){.region-underline,.scroll-regions button{transition:none;}}
 
-@font-face{font-family:'Region Inscription';src:url('assets/fonts/MaShanZheng-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
 .scroll .scroll-caption{background:transparent;border:0;box-shadow:none;width:68px;min-width:68px;max-width:68px;height:120px;padding:6px;color:#30271c;font-family:'Region Inscription',serif;font-size:40px;font-weight:400;letter-spacing:.12em;text-shadow:0 0 3px #eee0ba99;bottom:calc(var(--roll-height) + 24px);}
 .scroll .scroll-caption>span{position:relative;display:block;width:56px;height:108px;line-height:1.2;overflow:hidden;}
 .scroll .scroll-caption>span>span{position:absolute;inset:6px 0;display:block;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;line-height:56px;}
 @media(max-width:700px){.scroll .scroll-caption{width:56px;min-width:56px;max-width:56px;height:100px;font-size:32px;padding:4px;left:16px;bottom:calc(var(--roll-height) + 16px);}.scroll .scroll-caption>span{width:48px;height:92px;}.scroll .scroll-caption>span>span{line-height:48px;}}
 
-@font-face{font-family:'Region Small Seal';src:url('assets/fonts/chongxi/chongxi_seal.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;}
-.scroll .scroll-caption{font-family:'Region Small Seal',serif;font-size:48px;color:#21180e;height:142px;letter-spacing:.08em;text-shadow:0 0 2px #f1e3b7,0 0 5px #edddbba6;}
+.scroll .scroll-caption{font-family:serif;font-size:48px;color:#21180e;height:142px;letter-spacing:.08em;text-shadow:0 0 2px #f1e3b7,0 0 5px #edddbba6;}
 .scroll .scroll-caption>span{height:130px;}.scroll .scroll-caption>span>span{inset:7px 0;}
 @media(max-width:700px){.scroll .scroll-caption{font-size:38px;height:116px;}.scroll .scroll-caption>span{height:108px;}}
 
@@ -396,7 +394,7 @@
 
 /* 原画风格放大镜仅作用于可探索的画卷；使用原生光标，无跟随层。 */
 @media (hover:hover) and (pointer:fine){
- .scroll .scroll-viewport{cursor:url('assets/cursors/scroll-magnifier-72.png') 28 28,zoom-in;}
+ .scroll .scroll-viewport{cursor:url('assets/cursors/scroll-magnifier-72.webp') 28 28,zoom-in;}
  .scroll .scroll-viewport.is-dragging,.scroll .scroll-viewport.is-dragging *{cursor:grabbing!important;}
  .scroll .scroll-viewport :is(button,a,[role=button]){cursor:pointer;}
 }
@@ -426,3 +424,9 @@
  .scroll .scroll-viewport.flow-pointer-ready:not(.is-dragging) .npc-seal,
  .scroll .scroll-viewport.flow-pointer-ready:not(.is-dragging) .npc-seal *{cursor:none!important;}
 }
+/* Fixed inscriptions are rendered from the original font; no full font download. */
+.scroll .scroll-caption>span>span[data-region]{color:transparent;text-shadow:none;background-position:center top;background-size:56px 116px;background-repeat:no-repeat;filter:drop-shadow(0 1px 3px rgba(27,21,13,.85)) drop-shadow(0 0 7px rgba(27,21,13,.45));}
+.scroll .scroll-caption [data-region="city"]{background-image:url('assets/region-city.webp');}
+.scroll .scroll-caption [data-region="river"]{background-image:url('assets/region-river.webp');}
+.scroll .scroll-caption [data-region="outskirts"]{background-image:url('assets/region-outskirts.webp');}
+@media(max-width:700px){.scroll .scroll-caption>span>span[data-region]{background-size:44.33px 91.83px;}}
