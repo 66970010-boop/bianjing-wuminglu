@@ -10,7 +10,7 @@ const SCROLL_NPCS = [
   {id:'barber',label:'刀镊匠 · 毫末之间',x:2172/14794,y:666/700},
   {id:'monk',label:'行脚僧',x:.91,y:.64},
   {id:'boat',label:'船夫',x:.515,y:.38},
-  {id:'baker',label:'饼店主人',x:.482,y:.63},
+  {id:'baker',label:'炊饼摊主',x:.25427,y:.605},
   {id:'merchant',label:'杂货商',x:.23,y:.64},
   {id:'fortune',label:'卜卦先生',x:11100/14794,y:280/700}
 ];

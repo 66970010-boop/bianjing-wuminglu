@@ -18,7 +18,7 @@ function cleanupDay(){for(const key of ['fortuneCleanup','drinkCleanup','barberC
 function dayRoot(cls){cleanupDay();app.innerHTML='';const root=div('screen '+cls);app.append(root);return root}
 function dayCard(root,kicker,title,body){const c=div('story-card');c.append(div('eyebrow',kicker));const h=document.createElement('h1');h.textContent=title;c.append(h);for(const line of body){const p=document.createElement('p');p.textContent=line;c.append(p)}root.append(c);return c}
 function dayStart(){const d=dayStory();if(!d.started){d.started=true;d.frame=0;go('opening')}else go('opening-film')}
-function findBaker(){const npc=SCROLL_NPCS.find(n=>n.id==='baker');state.scrollCenter=npc.x;state.region='river';save();go('scroll')}
+function findBaker(){const npc=SCROLL_NPCS.find(n=>n.id==='baker');state.scrollCenter=npc.x;state.region='city';save();go('scroll')}
 render=function(){
  if(['collection','letter'].includes(state.page)){state.page='scroll';save()}
  const p=state.page,d=dayStory();
